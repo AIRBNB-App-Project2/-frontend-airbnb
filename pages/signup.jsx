@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import villoka from '../img/Villoka.svg'
 import Elemt1 from '../img/img-signup.png'
-import NotifSucc from '../component/success'
-import NotifErr from '../component/error'
+import Swal from 'sweetalert2'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
@@ -12,8 +11,6 @@ function SignUp() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [success, setSuccess] = useState("");
-    const [error, setError] = useState("");
     const [nameErr, setNameErr] = useState({})
     const [emailErr, setEmailErr] = useState({})
     const [passwordErr, setPasswordErr] = useState({})
@@ -33,18 +30,22 @@ function SignUp() {
                         setName("");
                         setEmail("");
                         setPassword("");
-                        setTimeout(() => {
-                            setSuccess("");
-                            router.push("/signin");
-                        }, 2000);
-                        setSuccess(data.message);
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Signed in successfully'
+                        })
+                        router.push("/signin")
                     }
                 })
                 .catch((err) => {
-                    setError(err.response.data.message);
-                    setTimeout(() => {
-                        setError("");
-                    }, 3000);
+                    // setError(err.response.data.message);
+                    if (err) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Sorry',
+                            text: 'Data your input same'
+                        })
+                    }
                 });
         }
     }
@@ -74,6 +75,21 @@ function SignUp() {
         return isValid;
     };
 
+    // Notif Success
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+
+
 
     console.log(name, email, password)
     return (
@@ -86,8 +102,6 @@ function SignUp() {
                 </div>
                 <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0 bg-primary">
                     <div className="w-full py-3 z-20">
-                        {success && <NotifSucc succs={success} />}
-                        {error && (<NotifErr errors={error} />)}
                         <div className='flex items-center justify-center'>
                             <h1 className="my-6 mr-2 text-3xl font-semibold text-white">
                                 Welcome to
