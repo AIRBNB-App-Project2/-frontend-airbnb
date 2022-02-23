@@ -3,146 +3,188 @@ import Image from "next/image";
 import villoka from '../img/Villoka_white.svg'
 import logosm from '../img/Logosm.svg'
 import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { Transition, Disclosure, Menu } from '@headlessui/react'
 import {
-    BookmarkAltIcon,
-    CalendarIcon,
-    ChartBarIcon,
-    CursorClickIcon,
     MenuIcon,
-    PhoneIcon,
-    PlayIcon,
-    RefreshIcon,
-    ShieldCheckIcon,
-    SupportIcon,
-    ViewGridIcon,
     XIcon,
+    BellIcon,
 } from '@heroicons/react/outline'
 import Link from 'next/link';
 
-const solutions = [
-    {
-        name: 'Analytics',
-        description: 'Get a better understanding of where your traffic is coming from.',
-        href: '#',
-        icon: ChartBarIcon,
-    },
-    {
-        name: 'Engagement',
-        description: 'Speak directly to your customers in a more meaningful way.',
-        href: '#',
-        icon: CursorClickIcon,
-    },
-    { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
-    {
-        name: 'Integrations',
-        description: "Connect with third-party tools that you're already using.",
-        href: '#',
-        icon: ViewGridIcon,
-    },
-    {
-        name: 'Automations',
-        description: 'Build strategic funnels that will drive your customers to convert',
-        href: '#',
-        icon: RefreshIcon,
-    },
+const user = {
+    name: 'Tom Cook',
+    email: 'tom@example.com',
+    imageUrl:
+        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+}
+
+const userNavigation = [
+    { name: 'Your Profile', href: '#' },
+    { name: 'Settings', href: '#' },
+    { name: 'Sign out', href: '#' },
 ]
 
+const navigation = [
+    { name: 'Dashboard', href: '#', current: true },
+    { name: 'Team', href: '#', current: false },
+    { name: 'Projects', href: '#', current: false },
+    { name: 'Calendar', href: '#', current: false },
+    { name: 'Reports', href: '#', current: false },
+]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function Navbar() {
-    return (
-        <Popover className="relative bg-secondary">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                <div className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-                    <div className="flex justify-start lg:w-0 lg:flex-1">
-                        <a>
-                            <Image src={villoka} alt="Logo-villoka" />
-                        </a>
-                    </div>
-                    <div className="-mr-2 -my-2 md:hidden">
-                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                            <span className="sr-only">Open menu</span>
-                            <MenuIcon className="h-6 w-6" aria-hidden="true" />
-                        </Popover.Button>
-                    </div>
-                    {/* search component */}
-                    <div className='hidden md:flex space-x-10'>
-                        <div className="relative text-gray-600">
-                            <input type="search" placeholder="Search" className="bg-white h-10 px-5 pr-14 rounded-full text-sm focus:outline-none" />
-                            <button type="submit" className="absolute right-0 -top-1 mt-3 mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                    <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                        <Link href='/signin'><a href="#" className="whitespace-nowrap text-base font-medium text-white hover:text-primary cursor-pointer"> Sign in</a></Link>
-                        <Link href='/signup'><p className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-white hover:text-primary cursor-pointer"
-                        > Sign up </p></Link>
-                    </div>
-                </div>
-            </div>
 
-            <Transition
-                as={Fragment}
-                enter="duration-200 ease-out"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="duration-100 ease-in"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                <Popover.Panel focus className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
-                    <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-                        <div className="pt-5 pb-6 px-5">
-                            <div className="flex items-center justify-between">
-                                <div>
+    const getToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    return (
+        <Disclosure as="nav" className="bg-secondary">
+            {({ open }) => (
+                <>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center justify-between h-16">
+                            <div className="flex items-center">
+                                <div className="flex-shrink-0">
                                     <Image
-                                        src={logosm}
-                                        alt="Workflow"
+                                        className="h-8 w-8"
+                                        src={villoka}
+                                        alt="Logo-Villoka"
                                     />
                                 </div>
-                                <div className="-mr-2">
-                                    <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                                        <span className="sr-only">Close menu</span>
-                                        <XIcon className="h-6 w-6" aria-hidden="true" />
-                                    </Popover.Button>
+                                <div className="hidden md:block">
+                                    <div className="ml-10 flex items-baseline space-x-4">
+                                        {navigation.map((item) => (
+                                            <a
+                                                key={item.name}
+                                                href={item.href}
+                                                className={classNames(
+                                                    item.current
+                                                        ? 'bg-gray-900 text-white'
+                                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                    'px-3 py-2 rounded-md text-sm font-medium'
+                                                )}
+                                                aria-current={item.current ? 'page' : undefined}
+                                            >
+                                                {item.name}
+                                            </a>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                            {/* <div className="mt-6">
-                                <nav className="grid gap-y-8">
-                                    {solutions.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                            <div className="hidden md:block">
+                                <div className="ml-4 flex items-center md:ml-6">
+                                    <button
+                                        type="button"
+                                        className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                                    >
+                                        <span className="sr-only">View notifications</span>
+                                        <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                    </button>
+
+                                    {/* Profile dropdown */}
+                                    <Menu as="div" className="ml-3 relative">
+                                        <div>
+                                            <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                <span className="sr-only">Open user menu</span>
+                                                <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                            </Menu.Button>
+                                        </div>
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-100"
+                                            enterFrom="transform opacity-0 scale-95"
+                                            enterTo="transform opacity-100 scale-100"
+                                            leave="transition ease-in duration-75"
+                                            leaveFrom="transform opacity-100 scale-100"
+                                            leaveTo="transform opacity-0 scale-95"
                                         >
-                                            <item.icon className="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
-                                            <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
-                                        </a>
-                                    ))}
-                                </nav>
-                            </div> */}
-                        </div>
-                        <div className="py-6 px-5 space-y-6">
-                            <div>
-                                <Link href='/signup'><p href="#"
-                                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-secondary cursor-pointer">
-                                    Daftar </p></Link>
-                                <p className="mt-6 text-center text-base font-medium text-gray-500 cursor-pointer">
-                                    Punya Akun?{' '}
-                                    <Link href='/signin'><p href="#" className="text-primary hover:text-secondary">Masuk</p></Link>
-                                </p>
+                                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                                {userNavigation.map((item) => (
+                                                    <Menu.Item key={item.name}>
+                                                        {({ active }) => (
+                                                            <a
+                                                                href={item.href}
+                                                                className={classNames(
+                                                                    active ? 'bg-gray-100' : '',
+                                                                    'block px-4 py-2 text-sm text-gray-700'
+                                                                )}
+                                                            >
+                                                                {item.name}
+                                                            </a>
+                                                        )}
+                                                    </Menu.Item>
+                                                ))}
+                                            </Menu.Items>
+                                        </Transition>
+                                    </Menu>
+                                </div>
+                            </div>
+                            <div className="-mr-2 flex md:hidden">
+                                {/* Mobile menu button */}
+                                <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                    <span className="sr-only">Open main menu</span>
+                                    {open ? (
+                                        <XIcon className="block h-6 w-6" aria-hidden="true" />
+                                    ) : (
+                                        <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                                    )}
+                                </Disclosure.Button>
                             </div>
                         </div>
                     </div>
-                </Popover.Panel>
-            </Transition>
-        </Popover>
+
+                    <Disclosure.Panel className="md:hidden">
+                        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                            {navigation.map((item) => (
+                                <Disclosure.Button
+                                    key={item.name}
+                                    as="a"
+                                    href={item.href}
+                                    className={classNames(
+                                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                        'block px-3 py-2 rounded-md text-base font-medium'
+                                    )}
+                                    aria-current={item.current ? 'page' : undefined}
+                                >
+                                    {item.name}
+                                </Disclosure.Button>
+                            ))}
+                        </div>
+                        <div className="pt-4 pb-3 border-t border-gray-700">
+                            <div className="flex items-center px-5">
+                                <div className="flex-shrink-0">
+                                    <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                                </div>
+                                <div className="ml-3">
+                                    <div className="text-base font-medium leading-none text-white">{user.name}</div>
+                                    <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                                >
+                                    <span className="sr-only">View notifications</span>
+                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                </button>
+                            </div>
+                            <div className="mt-3 px-2 space-y-1">
+                                {userNavigation.map((item) => (
+                                    <Disclosure.Button
+                                        key={item.name}
+                                        as="a"
+                                        href={item.href}
+                                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                                    >
+                                        {item.name}
+                                    </Disclosure.Button>
+                                ))}
+                            </div>
+                        </div>
+                    </Disclosure.Panel>
+                </>
+            )}
+        </Disclosure>
     )
 }

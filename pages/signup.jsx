@@ -32,7 +32,7 @@ function SignUp() {
                         setPassword("");
                         Toast.fire({
                             icon: 'success',
-                            title: 'Signed in successfully'
+                            title: 'Assyiik, Kamu Berhasil Daftar'
                         })
                         router.push("/signin")
                     }
@@ -42,8 +42,8 @@ function SignUp() {
                     if (err) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Sorry',
-                            text: 'Data your input same'
+                            title: 'Ooppss, maaf..',
+                            text: 'Data Kamu Masukkan Sudah Ada'
                         })
                     }
                 });
@@ -96,45 +96,45 @@ function SignUp() {
         <>
             <section className="min-h-screen flex items-stretch ">
                 <div className="lg:flex w-1/2 hidden bg-no-repeat bg-cover relative items-center text-white ">
-                    <div className="w-full px-24 z-10">
-                        <Image src={Elemt1} alt="Villoka Logo" />
+                    <div className="w-full px-24 drop-shadow-lg">
+                        <Image src={Elemt1} alt="" />
                     </div>
                 </div>
-                <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0 bg-primary">
-                    <div className="w-full py-3 z-20">
+                <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 bg-primary">
+                    <div className="w-full py-3">
                         <div className='flex items-center justify-center'>
                             <h1 className="my-6 mr-2 text-3xl font-semibold text-white">
-                                Welcome to
+                                Selamat Datang di
                             </h1>
                             <Image src={villoka} alt="Villoka Logo" />
                         </div>
                         <form className="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                             <div className="pb-2 pt-4">
-                                <input type="text" placeholder="Place your name..." className="block w-full p-4 text-lg rounded-sm bg-secondary placeholder:italic  placeholder:text-slate-400" autoComplete='off' onChange={e => { setName(e.target.value) }} />
+                                <input type="text" placeholder="Nama kamu.." className="block w-full p-4 text-lg text-white rounded-md bg-secondary placeholder:italic  placeholder:text-slate-400" autoComplete='off' onChange={e => { setName(e.target.value) }} value={name} />
                                 {Object.keys(nameErr).map((key) => {
                                     return <div className='text-red-500 text-md text-left italic bg-secondary/80 p-2'>{nameErr[key]}</div>
                                 })}
 
                             </div>
                             <div className="pb-2 pt-4">
-                                <input type="email" placeholder="Email" className="block w-full p-4 text-lg rounded-sm bg-secondary placeholder:italic placeholder:text-slate-400" autoComplete='off' onChange={e => { setEmail(e.target.value) }} />
+                                <input type="email" placeholder="Email" className="block w-full p-4 text-lg text-white rounded-md bg-secondary placeholder:italic placeholder:text-slate-400" autoComplete='off' onChange={e => { setEmail(e.target.value) }} value={email} />
                                 {Object.keys(emailErr).map((key) => {
                                     return <div className='text-red-500 text-md text-left italic bg-secondary/80 p-2'>{emailErr[key]}</div>
                                 })}
                             </div>
                             <div className="pb-2 pt-4">
-                                <input className="block w-full p-4 text-lg rounded-sm bg-secondary placeholder:italic placeholder:text-slate-400" type="password" placeholder="Password" autoComplete='off' onChange={e => { setPassword(e.target.value) }} />
+                                <input className="block w-full p-4 text-lg rounded-md text-white bg-secondary placeholder:italic placeholder:text-slate-400" type="password" placeholder="Password" autoComplete='off' onChange={e => { setPassword(e.target.value) }} value={password} />
                                 {Object.keys(passwordErr).map((key) => {
                                     return <div className='text-red-500 text-md text-left italic bg-secondary/80 p-2'>{passwordErr[key]}</div>
                                 })}
                             </div>
                             <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
-                                <a href="#">Forgot your password?</a>
+                                <a >Forgot your password?</a>
                             </div>
                             <div className="px-4 pb-2 pt-4">
-                                <button className="uppercase block px-4 py-4 mx-auto text-lg text-white font-semibold rounded-md bg-secondary hover:bg-primary hover:ring-1 hover:ring-secondary active:drop-shadow-sm focus:outline-none" onClick={handleSubmit} >Sign up </button>
+                                <button className="uppercase block px-4 py-4 mx-auto text-lg text-white font-semibold rounded-md bg-secondary hover:bg-primary hover:ring-1 hover:ring-secondary active:drop-shadow-sm focus:outline-none" onClick={handleSubmit} >Daftar </button>
                             </div>
-                            <small className='mt-5 italic text-white'>Have account?<span className='hover:text-secondary text-lg'><Link href={'/'}> Sign In &rarr;</Link></span></small>
+                            <small className='mt-5 italic text-white'>Sudah punya akun?<span className='hover:text-secondary text-lg'><Link href={'/signin'}> Masuk &rarr;</Link></span></small>
 
                             {/* Media Social */}
                             <div className="p-4 text-center right-0 left-0 flex justify-center space-x-4 mt-16 lg:hidden ">
