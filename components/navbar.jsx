@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from "next/image";
 import villoka from '../img/Villoka_white.svg'
-import logosm from '../img/Logosm.svg'
+// import logosm from '../img/Logosm.svg'
 import { Fragment } from 'react'
 import { Transition, Disclosure, Menu } from '@headlessui/react'
 import {
@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/outline'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
 
 const user = {
     name: 'Tom Cook',
@@ -83,13 +84,13 @@ export default function Navbar() {
                                     </button>
                                     <button className={classNames(!getToken ? 'hidden' : '', `p-3 rounded-full text-rose-300`)} onClick={Logout}>
                                         <span className="sr-only">Log out Toggle</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                         </svg>
                                     </button>
 
                                     {/* Profile dropdown */}
-                                    <Menu Menu as="div" className="ml-3 relative">
+                                    <Menu as="div" className="ml-3 relative">
                                         <div>
                                             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                 <span className="sr-only">Open user menu</span>
@@ -170,7 +171,7 @@ export default function Navbar() {
                                 <button className={classNames(!getToken ? 'hidden' : '', `ml-3 flex-shrink-0 p-1 rounded-full text-rose-400`)} onClick={Logout}>
                                     <span className="sr-only">Log out Toggle</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                     </svg>
                                 </button>
                             </div>

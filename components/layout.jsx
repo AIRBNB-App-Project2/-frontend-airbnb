@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from './navbar'
+// import Navbar from './navbar'
 import Footer from "./footer";
 // import allStore from '../store/actions';
 // import { useDispatch } from 'react-redux'
@@ -9,7 +9,7 @@ import Footer from "./footer";
 function Layout({ children }) {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <main>{children}</main>
             <Footer />
         </>
