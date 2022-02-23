@@ -124,7 +124,7 @@ export default function Navbar() {
                                                 )) : (
                                                     <div className=''>
                                                         <button className='px-[4.5rem] py-2 text-md rounded-md  text-white hover:bg-secondary/30 cursor-pointer' onClick={() => { router.push('/signin') }}>Masuk</button>
-                                                        <button className='px-[4.5rem] my-2 py-2 block mx-auto text-md rounded-md text-elemen1 bg-secondary cursor-pointer' onClick={() => { router.push('/signup') }}>
+                                                        <button className='px-[4rem] my-2 py-2 block mx-auto text-md rounded-md text-elemen1 bg-elemen2 hover:bg-elemen2 hover:text-secondary cursor-pointer' onClick={() => { router.push('/signup') }}>
                                                             Daftar
                                                         </button>
                                                     </div>

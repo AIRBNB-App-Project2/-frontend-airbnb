@@ -60,7 +60,7 @@ function Sliders() {
     return (<>
         <div ref={slidersRef} className='w-full select-none'>
             <div className="aspect-w-16 aspect-h-9">
-                <img src={featureImg[currentIndex]} className='mx-auto' alt="Slider-img" width={1000} height={600} />
+                <img src={featureImg[currentIndex]} className='mx-auto h-[600px]' alt="Slider-img" width={1000} height={600} />
             </div>
 
             <div className='absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center'>
