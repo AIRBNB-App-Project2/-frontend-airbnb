@@ -78,7 +78,7 @@ export default function Home() {
     <>
       <Navbar />
       {/* Slider Images */}
-      <div className='max-w-screen-xl m-auto bg-gray-200'>
+      <div className='max-w-screen-xl m-auto bg-gray-200 z-0'>
         <Sliders />
       </div>
       {/* Kategori Card */}
