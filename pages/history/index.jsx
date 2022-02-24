@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DateRangePicker from "../../components/DateRangePicker";
 import { HiChevronLeft } from "react-icons/hi";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function index() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-
   const data = {
     villaName: "Villa Premium A3",
     category: [
@@ -43,21 +39,8 @@ export default function index() {
               </div>
             </div>
 
-            <div className="text-xl mt-6">
-              <label htmlFor="">CheckIn</label>
-              <DatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                disabled
-                className="border-2 border-stone-600"
-              />
-              <label htmlFor="">CheckOut</label>
-              <DatePicker
-                selected={endDate}
-                onChange={(date) => setEndDate(date)}
-                disabled
-                className="border-2 border-stone-600"
-              />
+            <div className="text-xl mt-6 w-8/12">
+              <DateRangePicker />
             </div>
 
             <h4 className="text-xl font-semibold mt-3">
