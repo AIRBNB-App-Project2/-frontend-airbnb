@@ -3,6 +3,7 @@ import Navbar from '../components/navbar'
 import Sliders from '../components/slidersImage'
 import CurrencyFormat from 'react-currency-format';
 import axios from 'axios'
+import Link from 'next/link';
 
 // local category
 const callouts = [
@@ -11,28 +12,28 @@ const callouts = [
     description: 'Wonderfull Indonesia',
     imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
-    href: '#',
+    href: 'standart',
   },
   {
     name: 'Deluxe',
     description: 'Wonderfull Indonesia',
     imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
-    href: '#',
+    href: 'deluxe',
   },
   {
     name: 'Superior',
     description: 'Wonderfull Indonesia',
     imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
-    href: '#',
+    href: 'superior',
   },
   {
     name: 'Luxury',
     description: 'Wonderfull Indonesia',
     imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
-    href: '#',
+    href: 'luxury',
   },
 ]
 
@@ -57,23 +58,25 @@ export default function Home(props) {
           <h2 className='text-2xl font-semibold select-none'>Temukan Kenyamanan Anda</h2>
           <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-x-3">
             {callouts.map((callout) => (
-              <div key={callout.name} className="group relative">
-                <div className="relative w-full h-48 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-                  <img
-                    src={callout.imageSrc}
-                    alt={callout.imageAlt}
-                    className="w-full h-full object-center object-cover" />
-                  <div className='absolute w-full py-2.5 bottom-0 inset-x-0 bg-elemen2/80 text-center leading-4'>
-                    <h3 className="mt-6 text-base font-semibold text-gray-900">
-                      <a href={callout.href}>
-                        <span className="absolute inset-0" />
-                        {callout.name}
-                      </a>
-                    </h3>
-                    <p className=" text-sm text-gray-500">{callout.description}</p>
+              <Link href={`/category?category=${callout.href}`}>
+                <div key={callout.name} className="group relative">
+                  <div className="relative w-full h-48 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                    <img
+                      src={callout.imageSrc}
+                      alt={callout.imageAlt}
+                      className="w-full h-full object-center object-cover" />
+                    <div className='absolute w-full py-2.5 bottom-0 inset-x-0 bg-elemen2/80 text-center leading-4'>
+                      <h3 className="mt-6 text-base font-semibold text-gray-900">
+                        <a href={callout.href}>
+                          <span className="absolute inset-0" />
+                          {callout.name}
+                        </a>
+                      </h3>
+                      <p className=" text-sm text-gray-500">{callout.description}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
