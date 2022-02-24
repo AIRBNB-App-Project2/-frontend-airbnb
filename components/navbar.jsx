@@ -41,7 +41,7 @@ export default function Navbar() {
     function Logout() {
         if (getToken) {
             localStorage.removeItem("token");
-            localStorage.removeItem("dataProfile");
+            // localStorage.removeItem("dataProfile");
             router.push("/");
         }
     }
