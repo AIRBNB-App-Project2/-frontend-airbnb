@@ -29,12 +29,12 @@ export default function index() {
             <HiChevronLeft />
           </button>
           <h1 className="md:text-4xl sm:text-3xl font-normal ml-3">
-            Konfirmasi dan Bayar
+            Perjalanan Selesai
           </h1>
         </div>
 
-        <div className="flex flex-wrap">
-          <div className="confirm-reserve lg:w-7/12 w-full">
+        <div className="flex flex-wrap justify-center">
+          <div className="lg:w-7/12 w-full">
             <div className="md:flex items-center mt-6">
               <img src="https://source.unsplash.com/random/300x200" />
               <div className="md:ml-6">
@@ -43,15 +43,19 @@ export default function index() {
               </div>
             </div>
 
-            <div className="flex justify-start text-xl mt-12">
+            <div className="text-xl mt-6">
+              <label htmlFor="">CheckIn</label>
               <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
+                disabled
                 className="border-2 border-stone-600"
               />
+              <label htmlFor="">CheckOut</label>
               <DatePicker
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
+                disabled
                 className="border-2 border-stone-600"
               />
             </div>
@@ -62,31 +66,6 @@ export default function index() {
             <h4 className="text-xl font-semibold mt-6">
               Total: Rp. {data.price * data.nights}
             </h4>
-          </div>
-
-          <div className="payment-form lg:w-5/12 w-full">
-            <div className="mt-6">
-              <form>
-                <select
-                  name="payMethod"
-                  id="payMethod"
-                  className="block border border-stone-600 rounded-lg px-3 py-2 text-xl"
-                >
-                  <option value="1">Gopay</option>
-                  <option value="2">Kartu Kredit</option>
-                </select>
-                <div className="mt-10">
-                  <label htmlFor="number">Masukkan No HP</label>
-                  <input
-                    type="number"
-                    className="block border border-stone-600 p-2 rounded-lg"
-                  />
-                </div>
-              </form>
-              <button className="bg-primary px-4 py-3 text-white rounded-lg mt-6">
-                Konfirmasi dan Bayar
-              </button>
-            </div>
           </div>
         </div>
       </div>
