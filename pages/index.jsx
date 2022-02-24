@@ -41,7 +41,7 @@ const callouts = [
 export default function Home(props) {
 
   const router = useRouter()
-  const rooms = props.rooms.data
+  const rooms = props.rooms.data.slice(0, 8)
 
   console.log(rooms);
 
