@@ -4,11 +4,15 @@ import CardCategory from '../../components/CardCategory';
 import Image from 'next/image';
 import Map from '../../components/Map';
 import Navbar from '../../components/navbar'
+import { useRouter } from 'next/router';
 
 
 export default function Category() {
 
   const [showOption, setShowOption] = useState(false);
+
+  const router = useRouter()
+  console.log(router.query);
 
   function handleOnClick() {
     setShowOption(!setShowOption);
