@@ -1,32 +1,33 @@
+import Image from 'next/image'
 import Navbar from '../components/navbar'
 import Sliders from '../components/slidersImage'
 
 const callouts = [
   {
-    name: 'Bali',
+    name: 'Standart',
     description: 'Wonderfull Indonesia',
-    imageSrc: 'https://media.istockphoto.com/photos/hindu-temple-in-bali-picture-id653953140?b=1&k=20&m=653953140&s=170667a&w=0&h=IMHSniMal35EVl0aM3Syi6o8pvyVoaU1X9brGGGYbVI=',
+    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
     href: '#',
   },
   {
-    name: 'Lombok',
+    name: 'Deluxe',
     description: 'Wonderfull Indonesia',
-    imageSrc: 'https://media.istockphoto.com/photos/beautiful-ksamil-beach-in-albania-picture-id517869683?k=20&m=517869683&s=612x612&w=0&h=HiL1pONDwoPgAP_DMGLhZlos6qNhYnnhXwhw6CbYjTk=',
+    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
     href: '#',
   },
   {
-    name: 'Bekasi',
+    name: 'Superior',
     description: 'Wonderfull Indonesia',
-    imageSrc: 'https://media.istockphoto.com/photos/city-landmarks-from-the-air-picture-id1276789193?b=1&k=20&m=1276789193&s=170667a&w=0&h=7Tlq3sNkAthn7Bv5OsXRuyGjpR2Ac2BJ8IrIxCyswpE=',
+    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
     href: '#',
   },
   {
-    name: 'Malang',
+    name: 'Luxury',
     description: 'Wonderfull Indonesia',
-    imageSrc: 'https://media.istockphoto.com/photos/malang-tugu-square-with-blue-sky-and-beautiful-garden-flower-park-is-picture-id1357870414?b=1&k=20&m=1357870414&s=170667a&w=0&h=XNyyQ_3ciE9UCx9P20tQXQv1Lm8JEAOOH9nY90z3FxQ=',
+    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: '',
     href: '#',
   },
@@ -37,7 +38,7 @@ const products = [
     id: 1,
     name: 'Basic Tee',
     href: '#',
-    imageSrc: 'https://images.unsplash.com/photo-1526928878027-1cf28c1405ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8dmlsbGFnZXxlbnwwfDJ8MHx8&auto=format&fit=crop&w=600&q=60',
+    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
     imageAlt: "Front of men's Basic Tee in black.",
     price: '$35',
     color: 'Black',
@@ -91,16 +92,15 @@ export default function Home() {
                   <img
                     src={callout.imageSrc}
                     alt={callout.imageAlt}
-                    className="w-full h-full object-center object-cover"
-                  />
+                    className="w-full h-full object-center object-cover" />
                   <div className='absolute w-full py-2.5 bottom-0 inset-x-0 bg-elemen2/80 text-center leading-4'>
-                    <h3 className="mt-6 text-sm text-gray-500">
+                    <h3 className="mt-6 text-base font-semibold text-gray-900">
                       <a href={callout.href}>
                         <span className="absolute inset-0" />
                         {callout.name}
                       </a>
                     </h3>
-                    <p className="text-base font-semibold text-gray-900">{callout.description}</p>
+                    <p className=" text-sm text-gray-500">{callout.description}</p>
                   </div>
                 </div>
               </div>
