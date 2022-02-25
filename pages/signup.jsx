@@ -6,14 +6,21 @@ import Swal from 'sweetalert2'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import Loading from '../components/loading'
+
 
 function SignUp() {
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    // state Error
     const [nameErr, setNameErr] = useState({})
     const [emailErr, setEmailErr] = useState({})
     const [passwordErr, setPasswordErr] = useState({})
+    // Loading
+    const [loading, setLoading] = useState(false)
+
 
     const router = useRouter();
 
@@ -23,6 +30,7 @@ function SignUp() {
         const isValid = formValidation();
         if (isValid) {
             const data = { name, email, password };
+            setLoading(true)
             axios
                 .post("http://18.140.1.124:8081/user", data)
                 .then(({ data }) => {
@@ -46,6 +54,9 @@ function SignUp() {
                             text: 'Data Kamu Masukkan Sudah Ada'
                         })
                     }
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         }
     }
@@ -89,9 +100,11 @@ function SignUp() {
     })
 
 
-
-
-    console.log(name, email, password)
+    if (loading) {
+        return (
+            <Loading />
+        );
+    }
     return (
         <>
             <section className="min-h-screen flex items-stretch ">
@@ -128,7 +141,7 @@ function SignUp() {
                                     return <div className='text-red-500 text-md text-left italic bg-secondary/80 p-2'>{passwordErr[key]}</div>
                                 })}
                             </div>
-                            <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
+                            <div className="hidden text-right text-gray-400 hover:underline hover:text-gray-100">
                                 <a >Forgot your password?</a>
                             </div>
                             <div className="px-4 pb-2 pt-4">

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import Loading from '../components/loading'
 
 
 function SignIn() {
@@ -13,6 +14,7 @@ function SignIn() {
     const [password, setPassword] = useState('')
     const [emailErr, setEmailErr] = useState({})
     const [passwordErr, setPasswordErr] = useState({})
+    const [loading, setLoading] = useState(false)
 
     const router = useRouter();
 
@@ -24,6 +26,7 @@ function SignIn() {
         const isValid = formValidation();
         if (isValid) {
             const data = { email, password };
+            setLoading(true)
             axios
                 .post("http://18.140.1.124:8081/login", data)
                 .then(({ data }) => {
@@ -50,6 +53,9 @@ function SignIn() {
                             text: 'Data Tidak Ditemukan'
                         })
                     }
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         }
     }
@@ -91,6 +97,11 @@ function SignIn() {
         }
     })
 
+    if (loading) {
+        return (
+            <Loading />
+        );
+    }
     return (
         <>
             <section className="min-h-screen flex items-stretch ">

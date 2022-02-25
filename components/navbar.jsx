@@ -22,7 +22,7 @@ const user = {
 
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '/signin' },
+    { name: 'Settings', href: '/' },
 
 ]
 
@@ -55,18 +55,20 @@ export default function Navbar() {
                             <div className="flex items-center justify-between h-24">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0">
-                                        <Image
-                                            className="h-8 w-8"
-                                            src={villoka}
-                                            alt="Logo-Villoka"
-                                        />
+                                        <Link href='/'>
+                                            <Image
+                                                className="h-8 w-8 cursor-pointer"
+                                                src={villoka}
+                                                alt="Logo-Villoka"
+                                            />
+                                        </Link>
                                     </div>
                                     <div className="hidden md:block">
                                         <div className="ml-64 flex space-x-10">
                                             <div className="relative text-gray-600">
-                                                <input type="search" placeholder="Cari kota..." className="bg-white h-10 px-5 pr-14 rounded-full text-sm focus:outline-none" />
-                                                <button type="submit" className="absolute right-0 -top-1 mt-3 mr-4">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <input type="search" placeholder="Cari kota..." className="bg-white h-12 px-5 pr-14 rounded-full text-md focus:outline-none" />
+                                                <button type="submit" className="absolute right-0 mt-3 mr-4 items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-elemen1 active:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                                     </svg>
                                                 </button>
@@ -112,16 +114,16 @@ export default function Navbar() {
                                                     {getToken ? userNavigation.map((item) => (
                                                         <Menu.Item key={item.name}>
                                                             {({ active }) => (
-                                                                <p
-                                                                    className={classNames(
-                                                                        active ? 'bg-gray-100' : '',
+                                                                <Link href={item.href}>
+                                                                    <a className={classNames(active ? 'bg-gray-100' : '',
                                                                         'block px-4 py-2 text-sm text-white hover:bg-secondary/30 cursor-pointer'
                                                                     )}>
-                                                                    <Link href={item.href}>{item.name}</Link>
-                                                                </p>
-
+                                                                        {item.name}
+                                                                    </a>
+                                                                </Link>
                                                             )}
                                                         </Menu.Item>
+
                                                     )) : (
                                                         <div className=''>
                                                             <button className='px-[4.5rem] py-2 text-md rounded-md  text-white hover:bg-secondary/30 cursor-pointer' onClick={() => { router.push('/signin') }}>Masuk</button>
