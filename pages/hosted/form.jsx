@@ -1,0 +1,63 @@
+import Link from "next/link"
+
+export default function formHost() {
+  return (
+    <div className="mt-10 flex justify-center sm:mt-0">
+        <div className="mt-5 md:mt-0 md:col-span-2">
+          <form action="#" method="POST" className='w-[600px]'>
+            <div className="overflow-hidden sm:rounded-md">
+              <div className="px-4 py-5 bg-white sm:p-6">
+                <h1 className='text-xl font-bold'>Silahkan input informasi villa anda :</h1>
+                  <div className="col-span-6 sm:col-span-4 mt-7">
+                    <label htmlFor="villa-name" className="block text-sm font-bold text-gray-700">Nama Villa</label>
+                    <input type="text" name="villa-name" id="villa-name" autoComplete="off" required className="mt-1 border focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary block w-full shadow-sm sm:text-sm border-secondary px-3 py-2" />
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-4 mt-5">
+                    <label htmlFor="adress" className="block text-sm font-bold text-gray-700">Alamat</label>
+                    <input type="text" name="adress" id="adress" autoComplete="off" required className="mt-1 border focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary block w-full shadow-sm sm:text-sm border-secondary px-3 py-2" />
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-3 mt-5">
+                    <label htmlFor="city" className="block text-sm font-bold text-gray-700">Kota</label>
+                    <select id="city" name="city" autoComplete="off" required className="mt-1 block w-full py-2 px-3 border border-secondary bg-white shadow-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary sm:text-sm">
+                      <option>United States</option>
+                      <option>Canada</option>
+                      <option>Mexico</option>
+                    </select>
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-3 mt-5">
+                    <label htmlFor="category" className="block text-sm font-bold text-gray-700">Kategori</label>
+                    <select id="category" name="category" autoComplete="off"  required className="mt-1 block w-full py-2 px-3 border border-secondary bg-white shadow-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary sm:text-sm">
+                      <option>Standart</option>
+                      <option>Deluxe</option>
+                      <option>Superior</option>
+                      <option>Luxury</option>
+                    </select>
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-4 mt-5">
+                    <label htmlFor="description" className="block text-sm font-bold text-gray-700">Deskripsi Fasilitas</label>
+                    <input type="text" name="description" id="description" autoComplete="off" required className="mt-1 border  focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary block w-full shadow-sm sm:text-sm border-secondary px-3 py-2" />
+                  </div>
+
+                  <div className="col-span-6 sm:col-span-4 mt-5">
+                    <label htmlFor="price" className="block text-sm font-bold text-gray-700">Harga</label>
+                    <input type="text" name="price" id="price" autoComplete="off" required className="mt-1 border focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary block w-full shadow-sm sm:text-sm border-secondary px-3 py-2" />
+                  </div>
+
+              </div>
+              <div className="px-4 py-3 text-right sm:px-6">
+                <Link href="/hosted/photo/">
+                  <a>
+                    <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2">Selanjutnya</button>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+  )
+}
