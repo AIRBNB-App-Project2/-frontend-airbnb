@@ -9,29 +9,29 @@ import Link from 'next/link';
 const callouts = [
   {
     name: 'Standart',
-    description: 'Wonderfull Indonesia',
-    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
+    description: 'Single bed, 1 porsi sarapan',
+    imageSrc: 'https://pix10.agoda.net/hotelImages/259/25972253/25972253_210715112100103696998.jpg?s=1024x768',
     imageAlt: '',
     href: 'standart',
   },
   {
     name: 'Deluxe',
-    description: 'Wonderfull Indonesia',
-    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
+    description: 'Twin bed, 2 porsi sarapan, Tv',
+    imageSrc: 'https://picture-origin.rumah123.com/news-content/img/2021/11/10150540/desain-vila-kecil-minimalis-pinterest-1.jpg',
     imageAlt: '',
     href: 'deluxe',
   },
   {
     name: 'Superior',
-    description: 'Wonderfull Indonesia',
-    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
+    description: 'Twin bed XL, 4 porsi sarapan, AC, Wifi, TV ',
+    imageSrc: 'https://www.watermark-bali.com/wp-content/uploads/2017/09/superior-room2.jpg',
     imageAlt: '',
     href: 'superior',
   },
   {
     name: 'Luxury',
-    description: 'Wonderfull Indonesia',
-    imageSrc: 'https://test-upload-s3-rogerdev.s3.ap-southeast-1.amazonaws.com/6216503718eb9324b8213a1f.png',
+    description: 'Twin bed XXL, 6 porsi sarapan, AC, Wifi, TV, Kolam Renang, Ruang Bioskop',
+    imageSrc: 'https://i.pinimg.com/originals/c7/be/b4/c7beb487b2b54736cfcb842d02463724.jpg',
     imageAlt: '',
     href: 'luxury',
   },
@@ -41,25 +41,13 @@ const callouts = [
 export default function Home(props) {
 
   const router = useRouter()
-  const rooms = props.rooms.data
-
-  console.log(rooms);
-
-  function handleQueryParams() {
-    console.log(router.push(
-      { pathname: "/category", query: { category: "standard" } },
-      undefined,
-      {
-        shallow: true
-      }
-    ))
-  }
+  const rooms = props.rooms.data.slice(0, 8)
 
   return (
     <>
       <Navbar />
       {/* Slider Images */}
-      <div className='max-w-screen-xl m-auto bg-gray-200 z-0'>
+      <div className='max-w-screen-xl m-auto bg-gray-200/30 z-0'>
         <Sliders />
       </div>
       {/* Kategori Card */}
@@ -69,20 +57,20 @@ export default function Home(props) {
           <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-x-3">
             {callouts.map((callout) => (
               <Link href={`/category?category=${callout.href}`}>
-                <div key={callout.name} className="group relative" >
+                <div key={callout.name} className="group relative cursor-pointer" >
                   <div className="relative w-full h-48 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
                     <img
                       src={callout.imageSrc}
                       alt={callout.imageAlt}
                       className="w-full h-full object-center object-cover" />
-                    <div className='absolute w-full py-2.5 bottom-0 inset-x-0 bg-elemen2/80 text-center leading-4'>
-                      <h3 className="mt-6 text-base font-semibold text-gray-900">
-                        <a href={callout.href}>
+                    <div className='absolute w-full h-24 py-5 bottom-0 inset-x-0 bg-elemen2/80 text-center leading-4 animate-pulse hover:animate-none'>
+                      <h3 className="text-md font-semibold text-gray-900">
+                        <a>
                           <span className="absolute inset-0" />
                           {callout.name}
                         </a>
                       </h3>
-                      <p className=" text-sm text-gray-500">{callout.description}</p>
+                      <p className=" text-sm text-gray-500 px-2">{callout.description}</p>
                     </div>
                   </div>
                 </div>
@@ -114,7 +102,7 @@ export default function Home(props) {
                     </h3>
                     <p className="text-sm font-medium text-gray-900 truncate">{room.description}</p>
                   </div>
-                  <p className="mt-1 text-sm text-gray-500"><CurrencyFormat value={room.price} displayType={'text'} thousandSeparator={true} prefix={'Rp'} /></p>
+                  <p className="mt-1 text-md font-bold text-gray-500"><CurrencyFormat value={room.price} displayType={'text'} thousandSeparator={true} prefix={'Rp'} /></p>
                 </div>
               </div>
             ))}
