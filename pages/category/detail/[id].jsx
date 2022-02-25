@@ -8,8 +8,14 @@ import p2 from "../../../img/p2.jpg";
 import p3 from "../../../img/p3.jpg";
 import p4 from "../../../img/p4.jpg";
 import Navbar from '../../../components/navbar'
+import { useRouter } from "next/router";
 
-export default function DetailItem() {
+export default function DetailItem(props) {
+  const router = useRouter()
+  const { id } = router.query
+  console.log(id);
+
+
   return (
     <>
       <Navbar />

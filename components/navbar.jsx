@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from "next/image";
 import villoka from '../img/Villoka_white.svg'
 // import logosm from '../img/Logosm.svg'
@@ -11,7 +11,7 @@ import {
 } from '@heroicons/react/outline'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
+import axios from 'axios';
 
 const user = {
     name: 'Tom Cook',
@@ -33,8 +33,11 @@ function classNames(...classes) {
 
 export default function Navbar() {
 
+    const [searchTerm, setSearchTerm] = useState('')
     const router = useRouter()
     const getToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+    console.log(searchTerm);
 
 
     // funtion Logout
@@ -63,15 +66,23 @@ export default function Navbar() {
                                             />
                                         </Link>
                                     </div>
+                                    {/* Search Input */}
                                     <div className="hidden md:block">
                                         <div className="ml-64 flex space-x-10">
                                             <div className="relative text-gray-600">
-                                                <input type="search" placeholder="Cari kota..." className="bg-white h-12 px-5 pr-14 rounded-full text-md focus:outline-none" />
+                                                <input type="search" placeholder="Cari kota..." className="bg-white h-12 px-5 pr-14 rounded-full text-md focus:outline-none" onChange={e => { setSearchTerm(e.target.value) }} />
                                                 <button type="submit" className="absolute right-0 mt-3 mr-4 items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-elemen1 active:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                                     </svg>
                                                 </button>
+                                                {/* result search */}
+                                                {searchTerm.length != 0 && (
+                                                    <div className='bg-white absolute rounded-md mt-3 py-3 px-4 min-w-full h-40 overflow-y-auto transition ease-in-out'>
+                                                        <a className='block text-md text-gray-600 cursor-pointer hover:bg-elemen2 rounded-sm'> Result Search </a>
+                                                        <a className='block text-md text-gray-600 cursor-pointer hover:bg-elemen2 rounded-sm'> Result Search </a>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
