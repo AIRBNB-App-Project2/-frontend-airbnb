@@ -41,9 +41,19 @@ const callouts = [
 export default function Home(props) {
 
   const router = useRouter()
-  const rooms = props.rooms.data.slice(0, 8)
+  const rooms = props.rooms.data
 
   console.log(rooms);
+
+  function handleQueryParams() {
+    console.log(router.push(
+      { pathname: "/category", query: { category: "standard" } },
+      undefined,
+      {
+        shallow: true
+      }
+    ))
+  }
 
   return (
     <>
@@ -59,7 +69,7 @@ export default function Home(props) {
           <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-x-3">
             {callouts.map((callout) => (
               <Link href={`/category?category=${callout.href}`}>
-                <div key={callout.name} className="group relative">
+                <div key={callout.name} className="group relative" >
                   <div className="relative w-full h-48 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
                     <img
                       src={callout.imageSrc}
@@ -95,16 +105,16 @@ export default function Home(props) {
                   />
                 </div>
                 <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
+                  <div className='w-44'>
+                    <h3 className="text-md text-gray-700 font-semibold">
                       <a>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {room.name}
                       </a>
                     </h3>
-                    <p className="mt-1 text-sm text-gray-500"></p>
+                    <p className="text-sm font-medium text-gray-900 truncate">{room.description}</p>
                   </div>
-                  <p className="text-sm font-medium text-gray-900"><CurrencyFormat value={room.price} displayType={'text'} thousandSeparator={true} prefix={'Rp'} /></p>
+                  <p className="mt-1 text-sm text-gray-500"><CurrencyFormat value={room.price} displayType={'text'} thousandSeparator={true} prefix={'Rp'} /></p>
                 </div>
               </div>
             ))}

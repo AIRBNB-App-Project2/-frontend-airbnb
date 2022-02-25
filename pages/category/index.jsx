@@ -12,7 +12,8 @@ export default function Category() {
   const [showOption, setShowOption] = useState(false);
 
   const router = useRouter()
-  console.log(router.query);
+  // const { query } = router.query
+  console.log(router.query.category);
 
   function handleOnClick() {
     setShowOption(!setShowOption);
@@ -34,7 +35,7 @@ export default function Category() {
         </div>
 
         <div className='w-2/4'>
-          <div className='fixed hidden xl:inline-flex xl:min-w-[624px] xl:h-full'>
+          <div className='fixed hidden xl:inline-flex xl:max-w-[624px] xl:h-full'>
             <Map />
           </div>
         </div>

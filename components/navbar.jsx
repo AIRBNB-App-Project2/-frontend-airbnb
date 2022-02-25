@@ -55,11 +55,13 @@ export default function Navbar() {
                             <div className="flex items-center justify-between h-24">
                                 <div className="flex items-center">
                                     <div className="flex-shrink-0">
-                                        <Image
-                                            className="h-8 w-8"
-                                            src={villoka}
-                                            alt="Logo-Villoka"
-                                        />
+                                        <Link href='/'>
+                                            <Image
+                                                className="h-8 w-8 cursor-pointer"
+                                                src={villoka}
+                                                alt="Logo-Villoka"
+                                            />
+                                        </Link>
                                     </div>
                                     <div className="hidden md:block">
                                         <div className="ml-64 flex space-x-10">
