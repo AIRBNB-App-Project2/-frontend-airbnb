@@ -13,7 +13,6 @@ export default function Category() {
 
   const router = useRouter()
   // const { query } = router.query
-  console.log(router.query.category);
 
   function handleOnClick() {
     setShowOption(!setShowOption);
