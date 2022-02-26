@@ -21,8 +21,8 @@ const user = {
 }
 
 const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '/' },
+    { name: 'Riwayat', href: '/history' },
+    { name: 'Log out', href: '' },
 
 ]
 
@@ -41,7 +41,7 @@ export default function Navbar() {
 
 
     // funtion Logout
-    function Logout() {
+    function handleLogout() {
         if (getToken) {
             localStorage.removeItem("token");
             // localStorage.removeItem("dataProfile");
@@ -89,14 +89,14 @@ export default function Navbar() {
                                 </div>
                                 <div className="hidden md:block">
                                     <div className="ml-4 flex items-center md:ml-6">
-                                        <button
+                                        <button onClick={() => (router.push('/hosted'))}
                                             type="button"
-                                            className="bg-gray-800 p-1 mr-3 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                                            className={classNames(!getToken ? 'hidden' : '', `bg-elemen2 px-4 py-2 mr-3 rounded-lg text-primary hover:text-white hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-primary`)}
                                         >
-                                            <span className="sr-only">View notifications</span>
-                                            <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                            <span className="sr-only">View Hosted Rooms</span>
+                                            Sewakan Villamu
                                         </button>
-                                        <button className={classNames(!getToken ? 'hidden' : '', `p-3 rounded-full text-rose-300`)} onClick={Logout}>
+                                        <button className={classNames(!getToken ? 'hidden' : '', `p-3 rounded-full text-rose-300`)} onClick={handleLogout}>
                                             <span className="sr-only">Log out Toggle</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -182,7 +182,7 @@ export default function Navbar() {
                                         <span className="sr-only">View notifications</span>
                                         <BellIcon className="h-6 w-6" aria-hidden="true" />
                                     </button>
-                                    <button className={classNames(!getToken ? 'hidden' : '', `ml-3 flex-shrink-0 p-1 rounded-full text-rose-400`)} onClick={Logout}>
+                                    <button className={classNames(!getToken ? 'hidden' : '', `ml-3 flex-shrink-0 p-1 rounded-full text-rose-400`)} onClick={handleLogout}>
                                         <span className="sr-only">Log out Toggle</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
