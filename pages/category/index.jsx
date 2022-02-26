@@ -15,6 +15,14 @@ export default function Category(props) {
   // categories.charAt(0).toUpperCase() + categories.slice(1);
   // categories.replace(/^./, categories[0].toUpperCase());
 
+  const [showOption, setShowOption] = useState(false);
+  const router = useRouter()
+  // const { query } = router.query
+  console.log(router.query.category);
+
+  function handleOnClick() {
+    setShowOption(!setShowOption);
+  }
   return (
     <>
       <Navbar />
