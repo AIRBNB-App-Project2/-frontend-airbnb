@@ -15,14 +15,14 @@ export default function Category(props) {
   // categories.charAt(0).toUpperCase() + categories.slice(1);
   // categories.replace(/^./, categories[0].toUpperCase());
 
-  const [showOption, setShowOption] = useState(false);
-  const router = useRouter()
-  // const { query } = router.query
-  console.log(router.query.category);
+  // const [showOption, setShowOption] = useState(false);
+  // const router = useRouter()
+  // // const { query } = router.query
+  // console.log(router.query.category);
 
-  function handleOnClick() {
-    setShowOption(!setShowOption);
-  }
+  // function handleOnClick() {
+  //   setShowOption(!setShowOption);
+  // }
   return (
     <>
       <Navbar />
@@ -32,13 +32,13 @@ export default function Category(props) {
 
           <div className=''>
             {room.map((el) => (
-            <CardCategory
-              key={el.room_uid}
-              name={el.name}
-              description={el.description}
-              price={el.price}
-              id={el.room_uid}
-            />
+              <CardCategory
+                key={el.room_uid}
+                name={el.name}
+                description={el.description}
+                price={el.price}
+                id={el.room_uid}
+              />
             ))}
           </div>
         </div>
@@ -62,8 +62,8 @@ export async function getServerSideProps(router) {
   const res = await axios.get(`http://18.140.1.124:8081/room?category=${page}`);
   const rooms = await res.data;
   return {
-    props: { 
-      rooms,  
+    props: {
+      rooms,
     }
   }
 }

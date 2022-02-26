@@ -1,7 +1,5 @@
-
 import Link from "next/link"
 import Navbar from '../../components/navbar'
-import Link from "next/link";
 import axios from "axios";
 
 export default function formHost(props) {

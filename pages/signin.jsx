@@ -18,7 +18,6 @@ function SignIn() {
 
     const router = useRouter();
 
-    console.log(email, password);
 
     // Toggle Sign In 
     function handleSubmit(e) {
