@@ -10,7 +10,10 @@ module.exports = {
         'secondary': '#2A4441',
         'elemen1': '#EB9E69',
         'elemen2': '#F7FFFA',
-      }
+      },
+      fontFamily: {
+        poppins: ['Poppins'],
+      },
     },
   },
   plugins: [],

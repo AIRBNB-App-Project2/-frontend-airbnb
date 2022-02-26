@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import DateRangePicker from "../../../components/DateRangePicker";
@@ -8,8 +8,25 @@ import p2 from "../../../img/p2.jpg";
 import p3 from "../../../img/p3.jpg";
 import p4 from "../../../img/p4.jpg";
 import Navbar from '../../../components/navbar'
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 export default function DetailItem() {
+
+
+  const listRooms = useSelector(({ listRooms }) => listRooms)
+  const router = useRouter()
+  const { id } = router.query
+  console.log(id);
+
+
+
+  useEffect(() => {
+    const findRoom = listRooms.find(el => el.room_uid == id)
+    console.log(findRoom);
+  }, [])
+
+
   return (
     <>
       <Navbar />
