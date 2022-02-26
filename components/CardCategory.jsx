@@ -4,32 +4,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 import villas from "../img/villa.jpg";
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import {numberWithCommas} from '../utils/numberWithCommas';
 
 function CardCategory(props) {
 
-  const [nameRoom, setNameRoom] = useState('')
-  const [price, setPrice] = useState('')
-  const [id, setId] = useState('')
-
   const router = useRouter();
 
-  useEffect(() => {
-    setNameRoom(props.nameRooms)
-    setPrice(props.prices)
-    setId(props.id);
+  const [name] = useState(props.name);
+  const [description] = useState(props.description);
+  const [price] = useState(props.price);
+  const [id] = useState(props.id);
 
-  }, [props])
-
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
 
   return (
     <Link href={`/category/detail/${id}`}>
       <a>
         <div className="max-w-md md:max-w-2xl py-4" >
-          <div className="bg-white shadow-xl md:flex">
-            <div className='p-2 flex items-center'>
+          <div className="flex justify-between bg-white shadow-xl md:flex">
+            <div className='flex w-2/6 p-2 items-center'>
               <Image
                 src={villas}
                 alt="villa"
@@ -37,19 +30,15 @@ function CardCategory(props) {
                 height="205px"
               />
             </div>
-            <div className='pl-2 py-2'>
+            <div className='flex w-4/6 justify-between pl-2 py-2'>
               <div>
-                <p className="font-bold text-xl md:text-2xl">{nameRoom}</p>
-                <p className="text-gray-700 md:text-lg">6-8 tamu . Seluruh rumah . 5 kamar . 3 kamar mandi . Peralatan mandi . Kolam renang pribadi . Laundry. Wifi . Dapur . Parkir gratis</p>
-              </div>
-              <div className="">
-                <div className="sm:flex sm:justify-between sm:items-center">
-                  <div>
-                    <div className="text-lg text-gray-700"><span className="text-gray-900 font-bold">Rp {numberWithCommas(`${price}`)} / malam</span></div>
-                  </div>
-                  <div className="mt-3 pr-5 text-gray-600 text-sm md:text-base"><FaHeart /></div>
+                <p className="font-bold text-xl md:text-2xl">{name}</p>
+                <p className="text-gray-700 md:text-lg">{description}</p>
+                <div>
+                <p className="text-lg text-gray-700 font-bold">Rp. {numberWithCommas(price)}</p>
                 </div>
               </div>
+                  <div className="mt-3 pr-5 text-gray-600 text-sm md:text-base"><FaHeart /></div>
             </div>
           </div>
         </div>
@@ -58,4 +47,4 @@ function CardCategory(props) {
   )
 }
 
-export default CardCategory
+export default CardCategory;
