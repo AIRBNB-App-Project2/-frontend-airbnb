@@ -114,7 +114,7 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-  const res = await axios.get("http://18.140.1.124:8081/room");
+  const res = await axios.get("http://18.140.1.124:8081/room?length=100");
   const rooms = await res.data;
   return {
     props: {

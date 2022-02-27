@@ -1,8 +1,11 @@
 import { combineReducers } from "redux";
-import listRooms from './getRoomsReducers'
+import listRooms from './getRoomsReducers';
+import listRoomUid from './getRoomUidReducers';
+
 
 const rootReducer = combineReducers({
-    listRooms
+    listRooms,
+    listRoomUid,
 })
 
 export default rootReducer;
