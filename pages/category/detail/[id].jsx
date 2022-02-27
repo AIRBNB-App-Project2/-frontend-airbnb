@@ -39,7 +39,6 @@ export default function DetailItem(props) {
       setDescription(findRoom.description);
       // setImage(findRoom.Image.url);
     }
-    console.log(findRoom);
   }, [listRooms]);
 
   return (
@@ -70,6 +69,7 @@ export default function DetailItem(props) {
 
           <div className="flex flex-col w-max">
             <div className="flex justify-end h-max">
+            <form>
               <div className="h-auto p-5 bg-white shadow-xl">
                 <div className="flex">
                   <h4 className="font-bold flex  max-w-full">
@@ -82,7 +82,7 @@ export default function DetailItem(props) {
                   </div>
                 </div>
                 <div className="flex">
-                  <Link href="/">
+                  <Link href="/payment">
                     <a className="w-full">
                       <button className="bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded w-full mt-1">
                         Pesan
@@ -91,6 +91,7 @@ export default function DetailItem(props) {
                   </Link>
                 </div>
               </div>
+              </form>
             </div>
 
             <div className="flex mt-5 max-w-full bg-white shadow-xl h-auto p-5">
