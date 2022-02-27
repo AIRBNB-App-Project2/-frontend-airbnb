@@ -29,8 +29,8 @@ const numberOfNightsBetweenDates = (startDate, endDate) => {
   return dayCount;
 }
 
-export default function DateRangePicker({ datesChanged }) {
 
+export default function DateRangePicker() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
@@ -42,6 +42,11 @@ export default function DateRangePicker({ datesChanged }) {
         format={format}
         parseDate={parseDate}
         placeholder='Check in'
+        inputProps={
+          { 
+            required: true 
+          }
+        }
         dayPickerProps={{
           modifiers: {
             disabled: {
@@ -56,17 +61,34 @@ export default function DateRangePicker({ datesChanged }) {
             newEndDate.setDate(newEndDate.getDate() + 1)
             setEndDate(newEndDate);
           }
+
           // datesChanged(day, newEndDate);
         }}
       />
 
-      <DayPickerInput
-        className="basis-2/4 px-3 py-2"
-        formatDate={formatDate}
-        format={format}
-        parseDate={parseDate}
-        placeholder='Check out'
-        dayPickerProps={{
+//       <DayPickerInput
+//         className="basis-2/4 px-3 py-2"
+//         formatDate={formatDate}
+//         format={format}
+//         parseDate={parseDate}
+//         placeholder='Check out'
+//         dayPickerProps={{
+//         }}
+//       />
+
+      <DayPickerInput 
+      className="basis-2/4 px-3 py-2"
+      formatDate={formatDate}
+      format={format}
+      parseDate={parseDate}
+      placeholder='Check out'
+      inputProps={
+          { 
+            required: true 
+          }
+        }
+      dayPickerProps={{
+
           modifiers: {
             disabled: [
               startDate,
@@ -78,7 +100,7 @@ export default function DateRangePicker({ datesChanged }) {
         }}
         onDayChange={day => {
           setEndDate(day)
-          // datesChanged(startDate, day)
+
         }}
       />
     </div>

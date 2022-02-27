@@ -16,32 +16,36 @@ import Navbar from '../../../components/navbar'
 
 export default function DetailItem(props) {
 
-  const listRooms = useSelector(({ listRooms }) => listRooms)
-  const router = useRouter()
-  const { id } = router.query
-  console.log(id);
+  // const listRoomUid = useSelector(({ listRoomUid }) => listRoomUid);
+  const router = useRouter();
+  const { id } = router.query;
 
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [owner, setOwner] = useState('');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
+  const rooms = props.rooms.data;
+ 
+
+//   const [name, setName] = useState('');
+//   const [address, setAddress] = useState('');
+//   const [owner_room, setOwner_Room] = useState('');
+//   const [price, setPrice] = useState('');
+//   const [description, setDescription] = useState('');
   // const [image, setImage] = useState([]);
 
-  useEffect(() => {
-    const findRoom = listRooms.find(el => el.room_uid == id);
 
-    if (findRoom) {
-      setName(findRoom.name);
-      setAddress(findRoom.address);
-      setOwner(findRoom.owner_room);
-      setPrice(findRoom.price);
-      setDescription(findRoom.description);
-      console.log(findRoom.address);
-      // setImage(findRoom.Image.url);
-    }
-    console.log(findRoom);
-  }, [listRooms]);
+//   useEffect(() => {
+//     const findRoom = listRooms.find(el => el.room_uid == id);
+
+//     if (findRoom) {
+//       setName(findRoom.name);
+//       setAddress(findRoom.address);
+//       setOwner(findRoom.owner_room);
+//       setPrice(findRoom.price);
+//       setDescription(findRoom.description);
+//       console.log(findRoom.address);
+//       // setImage(findRoom.Image.url);
+//     }
+   
+//   }, [listRooms]);
+
 
   return (
     <>
@@ -63,18 +67,19 @@ export default function DetailItem(props) {
 
         <div className="flex justify-between mt-10">
           <div className="w-2/4">
-            <h1 className="text-4xl">{name}</h1>
-            <p className="text-xl font-light mt-2">{address}</p>
-            <p className="text-xl font-light mt-1">{description}</p>
-            <p className="text-xl mt-2">{owner}</p>
+            <h1 className="text-4xl">{rooms.name}</h1>
+            <p className="text-xl font-light mt-2">{rooms.address}</p>
+            <p className="text-xl font-light mt-1">{rooms.description}</p>
+            <p className="text-xl mt-2">Pemilik : {rooms.owner_room}</p>
           </div>
 
           <div className="flex flex-col w-max">
             <div className="flex justify-end h-max">
+            <form>
               <div className="h-auto p-5 bg-white shadow-xl">
                 <div className="flex">
                   <h4 className="font-bold flex  max-w-full">
-                    Rp. {numberWithCommas(price)} / malam
+                    Rp. {numberWithCommas(rooms.price)} / malam
                   </h4>
                 </div>
                 <div className="flex h-16 mt-2">
@@ -83,7 +88,7 @@ export default function DetailItem(props) {
                   </div>
                 </div>
                 <div className="flex">
-                  <Link href="/">
+                  <Link href="/payment">
                     <a className="w-full">
                       <button className="bg-primary hover:bg-secondary text-white font-bold py-2 px-4 rounded w-full mt-1">
                         Pesan
@@ -92,11 +97,12 @@ export default function DetailItem(props) {
                   </Link>
                 </div>
               </div>
+              </form>
             </div>
 
             <div className="flex mt-5 max-w-full bg-white shadow-xl h-auto p-5">
               <div className="flex flex-col divide-y divide-slate-700 w-72">
-                <h1 className="font-bold">Rp. {numberWithCommas(price)} x ... malam</h1>
+                <h1 className="font-bold">Rp. {numberWithCommas(rooms.price)} x ... malam</h1>
                 <h1 className="font-bold"> Total : Rp. ...</h1>
               </div>
             </div>
@@ -106,4 +112,16 @@ export default function DetailItem(props) {
 
     </>
   );
+}
+
+export async function getServerSideProps(router) {
+  const {id} = router.query
+
+  const res = await axios.get(`http://18.140.1.124:8081/room/${id}`);
+  const rooms = await res.data;
+  return {
+    props: { 
+      rooms,  
+    }
+  }
 }

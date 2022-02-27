@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import { FaHeart } from "react-icons/fa";
 import CardCategory from '../../components/CardCategory';
 import Image from 'next/image';
-import Map from '../../components/Map';
+// import Map from '../../components/Map';
 import Navbar from '../../components/navbar'
 import { useRouter } from 'next/router';
+import { useSelector } from "react-redux";
 import axios from "axios";
+import dynamic from 'next/dynamic';
+// import OpenMap from '../../components/OpenMap';
+
+export const Map = dynamic( import("../../components/Map"), {ssr: false});
+// const OpenMap = dynamic( import("../../components/OpenMap"), {ssr: false});
 
 export default function Category(props) {
 
@@ -15,14 +21,6 @@ export default function Category(props) {
   // categories.charAt(0).toUpperCase() + categories.slice(1);
   // categories.replace(/^./, categories[0].toUpperCase());
 
-  // const [showOption, setShowOption] = useState(false);
-  // const router = useRouter()
-  // // const { query } = router.query
-  // console.log(router.query.category);
-
-  // function handleOnClick() {
-  //   setShowOption(!setShowOption);
-  // }
   return (
     <>
       <Navbar />
@@ -60,7 +58,9 @@ export async function getServerSideProps(router) {
   const page = router.query.category
   const city = router.query.city
 
+
   const res = await axios.get(`http://18.140.1.124:8081/room?city=${city}&category=${page}&length=100`);
+
   const rooms = await res.data;
   return {
     props: {
