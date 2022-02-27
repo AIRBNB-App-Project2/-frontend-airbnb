@@ -18,7 +18,6 @@ export default function Category(props) {
   const room = props.rooms.data;
   const router = useRouter();
   const categories = router.query.category;
-  console.log(router.query.category)
   // categories.charAt(0).toUpperCase() + categories.slice(1);
   // categories.replace(/^./, categories[0].toUpperCase());
 
@@ -61,7 +60,7 @@ export default function Category(props) {
 export async function getServerSideProps(router) {
   const page = router.query.category
 
-  const res = await axios.get(`http://18.140.1.124:8081/room?category=${page}`);
+  const res = await axios.get(`http://18.140.1.124:8081/room?category=${page}&length=100`);
   const rooms = await res.data;
   return {
     props: { 
