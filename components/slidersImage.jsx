@@ -12,7 +12,7 @@ function Sliders() {
     let count = 0
     let slideInterval
 
-    const slidersRef = useRef()
+    const slidersRef = useRef(null)
 
     // function remove className animation
     const removeAnimation = () => {
@@ -41,7 +41,6 @@ function Sliders() {
             handleOnNext()
         }, 3000);
     }
-
 
     // Toggle Next Images
     const handleOnNext = () => {

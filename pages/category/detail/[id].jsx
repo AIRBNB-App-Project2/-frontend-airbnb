@@ -21,30 +21,31 @@ export default function DetailItem(props) {
   const { id } = router.query;
 
   const rooms = props.rooms.data;
-  console.log(rooms)
+ 
 
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [owner_room, setOwner_Room] = useState('');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
+//   const [name, setName] = useState('');
+//   const [address, setAddress] = useState('');
+//   const [owner_room, setOwner_Room] = useState('');
+//   const [price, setPrice] = useState('');
+//   const [description, setDescription] = useState('');
   // const [image, setImage] = useState([]);
 
 
+//   useEffect(() => {
+//     const findRoom = listRooms.find(el => el.room_uid == id);
 
-  // useEffect(() => {
-  //   const findRoom = listRoomUid.find(el => el.room_uid == id);
-  //   console.log(findRoom);
-    
-  //   if (findRoom) {
-  //     setName(findRoom.name);
-  //     setAddress(findRoom.address);
-  //     setOwner(findRoom.owner_room);
-  //     setPrice(findRoom.price);
-  //     setDescription(findRoom.description);
-  //     // setImage(findRoom.Image.url);
-  //   }
-  // }, [listRoomUid]);
+//     if (findRoom) {
+//       setName(findRoom.name);
+//       setAddress(findRoom.address);
+//       setOwner(findRoom.owner_room);
+//       setPrice(findRoom.price);
+//       setDescription(findRoom.description);
+//       console.log(findRoom.address);
+//       // setImage(findRoom.Image.url);
+//     }
+   
+//   }, [listRooms]);
+
 
   return (
     <>

@@ -1,11 +1,9 @@
 import { fetchAllRooms, setPost } from "./getRooms";
-import { fetchRoomsUid, setUid } from "./getRoomUid";
+import { fetchUser, setUser } from "./getUser";
 
 const allStore = {
     fetchAllRooms,
-    setPost,
-    fetchRoomsUid,
-    setUid,
+    setPost, fetchUser, setUser
 };
 
 export default allStore;

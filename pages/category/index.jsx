@@ -21,9 +21,6 @@ export default function Category(props) {
   // categories.charAt(0).toUpperCase() + categories.slice(1);
   // categories.replace(/^./, categories[0].toUpperCase());
 
-  // const listRooms = useSelector(({ listRooms }) => listRooms);
-  // console.log(listRooms, "listRooms")
-
   return (
     <>
       <Navbar />
@@ -33,13 +30,13 @@ export default function Category(props) {
 
           <div className=''>
             {room.map((el) => (
-            <CardCategory
-              key={el.room_uid}
-              name={el.name}
-              description={el.description}
-              price={el.price}
-              id={el.room_uid}
-            />
+              <CardCategory
+                key={el.room_uid}
+                name={el.name}
+                description={el.description}
+                price={el.price}
+                id={el.room_uid}
+              />
             ))}
           </div>
         </div>
@@ -59,12 +56,15 @@ export default function Category(props) {
 
 export async function getServerSideProps(router) {
   const page = router.query.category
+  const city = router.query.city
 
-  const res = await axios.get(`http://18.140.1.124:8081/room?category=${page}&length=100`);
+
+  const res = await axios.get(`http://18.140.1.124:8081/room?city=${city}&category=${page}&length=100`);
+
   const rooms = await res.data;
   return {
-    props: { 
-      rooms,  
+    props: {
+      rooms,
     }
   }
 }
