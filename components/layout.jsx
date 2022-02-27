@@ -13,6 +13,7 @@ function Layout({ children }) {
     useEffect(() => {
         dispatch(allStore.fetchAllRooms())
         dispatch(allStore.fetchUser())
+        dispatch(allStore.fetchCity())
     }, [dispatch])
 
 

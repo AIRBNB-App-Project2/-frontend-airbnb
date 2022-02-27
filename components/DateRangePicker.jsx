@@ -43,8 +43,8 @@ export default function DateRangePicker() {
         parseDate={parseDate}
         placeholder='Check in'
         inputProps={
-          { 
-            required: true 
+          {
+            required: true
           }
         }
         dayPickerProps={{
@@ -66,7 +66,7 @@ export default function DateRangePicker() {
         }}
       />
 
-//       <DayPickerInput
+      {/* <DayPickerInput
 //         className="basis-2/4 px-3 py-2"
 //         formatDate={formatDate}
 //         format={format}
@@ -74,20 +74,20 @@ export default function DateRangePicker() {
 //         placeholder='Check out'
 //         dayPickerProps={{
 //         }}
-//       />
+//       /> */}
 
-      <DayPickerInput 
-      className="basis-2/4 px-3 py-2"
-      formatDate={formatDate}
-      format={format}
-      parseDate={parseDate}
-      placeholder='Check out'
-      inputProps={
-          { 
-            required: true 
+      <DayPickerInput
+        className="basis-2/4 px-3 py-2"
+        formatDate={formatDate}
+        format={format}
+        parseDate={parseDate}
+        placeholder='Check out'
+        inputProps={
+          {
+            required: true
           }
         }
-      dayPickerProps={{
+        dayPickerProps={{
 
           modifiers: {
             disabled: [
