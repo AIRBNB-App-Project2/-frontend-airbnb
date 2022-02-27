@@ -58,8 +58,9 @@ export default function Category(props) {
 
 export async function getServerSideProps(router) {
   const page = router.query.category
+  const city = router.query.city
 
-  const res = await axios.get(`http://18.140.1.124:8081/room?category=${page}&length=100`);
+  const res = await axios.get(`http://18.140.1.124:8081/room?city=${city}&category=${page}&length=100`);
   const rooms = await res.data;
   return {
     props: {

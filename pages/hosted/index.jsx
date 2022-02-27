@@ -4,6 +4,8 @@ import CardHosted from '../../components/CardHosted'
 import Navbar from '../../components/navbar'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
+import { useDispatch } from "react-redux";
+import allStore from '../../store/actions';
 
 function Hosted() {
 
@@ -14,6 +16,7 @@ function Hosted() {
     const getToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     const ownerRooms = useSelector(({ listUser }) => listUser)
     const router = useRouter()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!getToken) {
@@ -25,13 +28,15 @@ function Hosted() {
             setPassword('privacy')
         }
 
-    }, [getToken])
+        dispatch(allStore.fetchUser())
+
+    }, [getToken, dispatch])
 
 
     return (
         <>
             <Navbar />
-            <div className=" mx-auto min-w-xl px-12 py-12 flex justify-start clearfix">
+            <div className="min-h-screen mx-auto min-w-xl px-12 py-12 flex justify-start clearfix">
                 <div className='flex flex-col w-2/4'>
                     <div className="inline-flex">
                         <button onClick={() => { router.push('/') }} className="py-3 px-3 mx-3 text-primary hover:text-elemen1"><svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8S" fill="none" viewBox="0 0 24 24" stroke="currentColor">
