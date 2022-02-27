@@ -14,9 +14,10 @@ function Hosted() {
     const getToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
     const ownerRooms = useSelector(({ listUser }) => listUser)
     const router = useRouter()
+
     useEffect(() => {
         if (!getToken) {
-            Router.push('/')
+            router.push('/')
         }
         if (ownerRooms) {
             setNameOwner(ownerRooms.name)
@@ -32,14 +33,20 @@ function Hosted() {
             <Navbar />
             <div className=" mx-auto min-w-xl px-12 py-12 flex justify-start clearfix">
                 <div className='flex flex-col w-2/4'>
-                    <h1 className='text-4xl font-semibold'>Owner Rooms</h1>
-                    <button className='inline-flex py-2 px-3 text-center rounded-full bg-primary text-md text-white font-medium hover:bg-secondary absolute ml-[17rem]' onClick={() => (router.push('/hosted/form'))}><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg> Tambah villa</button>
+                    <div className="inline-flex">
+                        <button onClick={() => { router.push('/') }} className="py-3 px-3 mx-3 text-primary hover:text-elemen1"><svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8S" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg></button>
+                        <h1 className='text-4xl py-3 font-semibold'>Owner Rooms</h1>
 
+                        <button className='inline-flex py-2 px-3 text-center rounded-full bg-primary text-md text-white font-medium hover:bg-secondary mt-3 absolute ml-[25rem]' onClick={() => (router.push('/hosted/form'))}><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        </svg> Tambah villa</button>
+
+                    </div>
                     <div className='my-5'>
                         {ownerRooms.rooms ? ownerRooms.rooms.map((el, i) => (
-                            <CardHosted key={i} nameRooms={el.name} />
+                            <CardHosted key={i} id={el.room_uid} nameRooms={el.name} prices={el.price} descs={el.description} status={el.status} />
                         )) : (<div className='min-h-screen max-w-xl block'>
                             <div className='my-24 text-elemen1'>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-14 w-14 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,7 +58,7 @@ function Hosted() {
                     </div>
                 </div>
 
-                <div className='w-2/4'>
+                <div className='w-2/4 my-6'>
                     <div className='relative xl:inline-flex xl:max-w-[624px]'>
                         <div className='bg-white drop-shadow-md w-96 px-16 py-10 my-[50px] rounded-md absolute mx-10'>
                             <h1 className='text-gray-800 text-2xl font-semibold'>Owner Profile</h1>
@@ -93,7 +100,6 @@ function Hosted() {
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
