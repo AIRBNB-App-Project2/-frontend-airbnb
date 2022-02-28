@@ -20,14 +20,24 @@ import p3 from "../../../img/p3.jpg";
 import p4 from "../../../img/p4.jpg";
 import Navbar from '../../../components/navbar'
 import Loading from "../../../components/loading";
-import DateRangePicker from "../../../components/DateRangePicker";
 
-function calculationDate(startDate, endDate) {
+// Day Picker
+const parseDate = (str, format, locale) => {
+  const parsed = dateFnsParse(str, format, new Date(), {locale})
+  return DateUtils.isDate(parsed) ? parsed : null
+}
+
+const formatDate = (date, format, locale) =>
+  dateFnsFormat(date, format, {locale});
+
+const format = "dd MMM yyyy";
+
+const calculationDate = (startDate, endDate) => {
   const start = new Date(startDate);
   const end = new Date(endDate);
   let dayCount = 0;
 
-  while (end > start) {
+  while (end > start){
     dayCount++;
     start.setDate(start.getDate() + 1);
   }
@@ -35,13 +45,11 @@ function calculationDate(startDate, endDate) {
   return dayCount;
 }
 
+
 export default function DetailItem(props) {
 
-  const [dateChosen, setDateChosen] = useState(false);
-  const [countDate, setCountDate] = useState(0);
-
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const router = useRouter();
   const { id } = router.query;
@@ -53,7 +61,10 @@ export default function DetailItem(props) {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('');
+
   const [loading, setLoading] = useState(false)
+  const [start_date, setStart_date] = useState('');
+  const [end_date, setEnd_date] = useState('');
 
   // Button Pesan
   function handleBooking(e) {
@@ -61,8 +72,8 @@ export default function DetailItem(props) {
     setLoading(true);
       const body = {
         room_uid: id,
-        start_date: startDate,
-        end_date: endDate,
+        start_date,
+        end_date,
       }
       axios
       .post("http://18.140.1.124:8081/booking/", body, {authorization:localStorage.getItem("token")})
@@ -78,14 +89,18 @@ export default function DetailItem(props) {
               title: 'Ooppss, Maaf..',
               text: `${err}`
           })
-          setStartDate('');
-          setEndDate('');
+          setStart_date('');
+          setEnd_date('');
       }
       })
       .finally(() => {
         setLoading(false);
     });
   }
+
+  useEffect(() => {
+    console.log(setStart_date);
+  }, [setStart_date])
 
   function returnButton(){
     if (typeof window !== "undefined") {
@@ -158,15 +173,68 @@ export default function DetailItem(props) {
                 </div>
                 <div className="flex h-16 mt-2">
                   <div className="flex w-2/4">
+                    <div className="flex justify-between border items-center p-3">
                     <div>
-                      <DateRangePicker
-                      datesChanged={(startDate, endDate) => {
-                      setCountDate(calculationDate(startDate, endDate))
-                      setDateChosen(true);
-                      setStartDate(startDate);
-                      setEndDate(endDate);
-                    }}
-                       />
+                      <DayPickerInput 
+                        className="basis-2/4 px-3 py-2 focus:border-none focus:outline-none"
+                        formatDate={formatDate}
+                        format={format}
+                        parseDate={parseDate}
+                        placeholder='Check in'
+                        onChange={e => { setStart_date(e.target.value) }} 
+                        value={start_date}
+                        inputProps={
+                          { 
+                            required: true 
+                          }
+                        }
+                        dayPickerProps={{
+                          modifiers: {
+                            disabled: {
+                              before: new Date()
+                            }
+                          }
+                        }}
+                        onDayChange={day => {
+                          setStartDate(day)
+                          if (calculationDate(day, endDate) < 1) {
+                            const newEndDate = new Date(day)
+                            newEndDate.setDate(newEndDate.getDate() + 1)
+                            setEndDate(newEndDate);
+                          }
+                        }}
+                      />
+                    </div>
+
+                    <div>    
+                      <DayPickerInput 
+                        className="basis-2/4 px-3 py-2"
+                        formatDate={formatDate}
+                        format={format}
+                        parseDate={parseDate}
+                        placeholder='Check out'
+                        onChange={e => { setEnd_date(e.target.value) }} 
+                        value={end_date}
+                        inputProps={
+                            { 
+                              required: true 
+                            }
+                          }
+                        dayPickerProps={{
+                            modifiers: {
+                              disabled: [
+                                startDate,
+                                {
+                                  before: startDate
+                                }
+                              ]
+                            }
+                          }}
+                          onDayChange={day => {
+                            setEndDate(day)
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -179,14 +247,12 @@ export default function DetailItem(props) {
               </form>
             </div>
 
-            {dateChosen && (
             <div className="flex mt-5 max-w-full bg-white shadow-xl h-auto p-5">
               <div className="flex flex-col divide-y divide-slate-700 w-72">
-                <h1 className="font-bold">Rp. {numberWithCommas(rooms.price)} x {countDate} malam</h1>
-                <h1 className="font-bold"> Total : Rp. {numberWithCommas(rooms.price * countDate)}</h1>
+                <h1 className="font-bold">Rp. {numberWithCommas(rooms.price)} x ... malam</h1>
+                <h1 className="font-bold"> Total : Rp. ...</h1>
               </div>
             </div>
-            )}
           </div>
         </div>
       </div>

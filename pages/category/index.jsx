@@ -8,10 +8,9 @@ import { useRouter } from 'next/router';
 import { useSelector } from "react-redux";
 import axios from "axios";
 import dynamic from 'next/dynamic';
-// import OpenMap from '../../components/OpenMap';
+import GMaps from '../../components/GMaps';
 
-export const Map = dynamic( import("../../components/Map"), {ssr: false});
-// const OpenMap = dynamic( import("../../components/OpenMap"), {ssr: false});
+// export const Map = dynamic( import("../../components/Map"), {ssr: false});
 
 export default function Category(props) {
 
@@ -21,8 +20,6 @@ export default function Category(props) {
   // categories.charAt(0).toUpperCase() + categories.slice(1);
   // categories.replace(/^./, categories[0].toUpperCase());
 
-  // const listRooms = useSelector(({ listRooms }) => listRooms);
-  // console.log(listRooms, "listRooms")
 
   return (
     <>
@@ -44,9 +41,9 @@ export default function Category(props) {
           </div>
         </div>
 
-        <div className='w-2/4'>
+        <div className='w-2/4 pl-2'>
           <div className='fixed hidden xl:inline-flex xl:max-w-[624px] xl:h-full'>
-            <Map />
+            <GMaps />
           </div>
         </div>
         <style jsx>{`
