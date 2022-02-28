@@ -54,6 +54,7 @@ export default function DetailItem(props) {
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false)
+  // const [image, setImage] = useState([]);
 
   // Button Pesan
   function handleBooking(e) {
@@ -119,6 +120,21 @@ export default function DetailItem(props) {
 
   }
 }
+
+//   useEffect(() => {
+//     const findRoom = listRooms.find(el => el.room_uid == id);
+
+//     if (findRoom) {
+//       setName(findRoom.name);
+//       setAddress(findRoom.address);
+//       setOwner(findRoom.owner_room);
+//       setPrice(findRoom.price);
+//       setDescription(findRoom.description);
+//       console.log(findRoom.address);
+//       // setImage(findRoom.Image.url);
+//     }
+   
+//   }, [listRooms]);
 
   return (
     <>

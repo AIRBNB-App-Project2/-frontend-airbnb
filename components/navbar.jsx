@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from "next/image";
 import villoka from '../img/Villoka_white.svg'
 // import logosm from '../img/Logosm.svg'
@@ -13,16 +13,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+import { useSelector } from 'react-redux';
+
 
 const userNavigation = [
     { name: 'Riwayat', href: '/history' },
-    { name: 'Log out', href: '' },
+    // { name: '', href: '' },
 
 ]
 
@@ -33,18 +29,40 @@ function classNames(...classes) {
 
 export default function Navbar() {
 
-    const [searchTerm, setSearchTerm] = useState('')
+    const [searchTerm, setSearchTerm] = useState([])
+    const [wordEntered, setWordEntered] = useState('')
+
     const router = useRouter()
     const getToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-    console.log(searchTerm);
+    const user = useSelector(({ listUser }) => listUser)
+    const cities = useSelector(({ listCity }) => listCity)
+
+    // function Searching
+    const handleSearch = (e) => {
+        const searchWord = e.target.value
+        setWordEntered(searchWord)
+        const newFilter = cities.filter((el) => {
+            return el.name.toLowerCase().includes(searchWord.toLowerCase())
+        })
+        if (searchWord === '') {
+            setSearchTerm([])
+        } else {
+            setSearchTerm(newFilter)
+        }
+    }
+
+    // Clear Input Search
+    const clearInput = () => {
+        setSearchTerm([])
+        setWordEntered('')
+    }
 
 
     // funtion Logout
     function handleLogout() {
         if (getToken) {
             localStorage.removeItem("token");
-            // localStorage.removeItem("dataProfile");
             router.push("/");
         }
     }
@@ -70,17 +88,29 @@ export default function Navbar() {
                                     <div className="hidden md:block">
                                         <div className="ml-64 flex space-x-10">
                                             <div className="relative text-gray-600">
-                                                <input type="search" placeholder="Cari kota..." className="bg-white h-12 px-5 pr-14 rounded-full text-md focus:outline-none" onChange={e => { setSearchTerm(e.target.value) }} />
-                                                <button type="submit" className="absolute right-0 mt-3 mr-4 items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-elemen1 active:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                                    </svg>
-                                                </button>
+                                                <input type="text" placeholder="Cari kota..." className="bg-white h-12 px-5 pr-14 rounded-full text-md focus:outline-none" value={wordEntered} onChange={handleSearch} />
+                                                {searchTerm.length === 0 ? (
+                                                    <button className="absolute right-0 mt-3 mr-4 items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-elemen1 active:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                        </svg>
+                                                    </button>
+                                                ) : (
+                                                    <button onClick={clearInput} className="absolute right-0 mt-3 mr-4 items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-elemen1 active:text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                )}
+
                                                 {/* result search */}
                                                 {searchTerm.length != 0 && (
                                                     <div className='bg-white absolute rounded-md mt-3 py-3 px-4 min-w-full h-40 overflow-y-auto transition ease-in-out'>
-                                                        <a className='block text-md text-gray-600 cursor-pointer hover:bg-elemen2 rounded-sm'> Result Search </a>
-                                                        <a className='block text-md text-gray-600 cursor-pointer hover:bg-elemen2 rounded-sm'> Result Search </a>
+                                                        {searchTerm.slice(0, 15).map(el => (
+                                                            <Link href={`/category?city=${el.name}`}>
+                                                                <a key={el.id} className='block text-md text-gray-600 cursor-pointer hover:bg-elemen2 rounded-sm'>{el.name}</a>
+                                                            </Link>
+                                                        ))}
                                                     </div>
                                                 )}
                                             </div>
@@ -96,19 +126,13 @@ export default function Navbar() {
                                             <span className="sr-only">View Hosted Rooms</span>
                                             Sewakan Villamu
                                         </button>
-                                        <button className={classNames(!getToken ? 'hidden' : '', `p-3 rounded-full text-rose-300`)} onClick={handleLogout}>
-                                            <span className="sr-only">Log out Toggle</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                            </svg>
-                                        </button>
 
                                         {/* Profile dropdown */}
                                         <Menu as="div" className="ml-3 relative">
                                             <div>
                                                 <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                     <span className="sr-only">Open user menu</span>
-                                                    <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                                    <img className="h-8 w-8 rounded-full" src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' alt="" />
                                                 </Menu.Button>
                                             </div>
                                             <Transition
@@ -146,6 +170,13 @@ export default function Navbar() {
                                                 </Menu.Items>
                                             </Transition>
                                         </Menu>
+                                        <button className={classNames(!getToken ? 'hidden' : '', `ml-3 p-3 rounded-full text-rose-300`)} onClick={handleLogout}>
+                                            <span className="sr-only">Log out Toggle</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                            </svg>
+                                        </button>
+
                                     </div>
                                 </div>
                                 <div className="-mr-2 flex md:hidden">
@@ -169,7 +200,7 @@ export default function Navbar() {
                             <div className="pt-4 pb-3 border-t border-gray-700">
                                 <div className="flex items-center px-5">
                                     <div className="flex-shrink-0">
-                                        <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                                        <img className="h-10 w-10 rounded-full" src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80' alt="" />
                                     </div>
                                     <div className="ml-3">
                                         <div className="text-base font-medium leading-none text-white">{user.name}</div>
@@ -209,4 +240,13 @@ export default function Navbar() {
             </Disclosure >
         </div>
     )
+}
+export async function getStaticProps() {
+    const res = await axios.get("http://18.140.1.124:8081/city");
+    const cities = await res.data;
+    return {
+        props: {
+            cities,
+        }, // will be passed to the page component as props
+    };
 }
