@@ -2,8 +2,12 @@ import DateRangePicker from "../../components/DateRangePicker";
 import { HiChevronLeft } from "react-icons/hi";
 import "react-datepicker/dist/react-datepicker.css";
 import Navbar from '../../components/navbar'
+import { useRouter } from "next/router";
+
 
 export default function Index() {
+  const router = useRouter()
+
   const data = {
     villaName: "Villa Premium A3",
     category: [
@@ -23,7 +27,7 @@ export default function Index() {
       <Navbar />
       <div className="container mx-8 mb-16">
         <div className="flex items-center mt-16">
-          <button className="md:text-4xl sm:text-3xl hover:bg-slate-100">
+          <button className="md:text-4xl sm:text-3xl text-primary hover:text-elemen1" onClick={() => { router.push('/') }}>
             <HiChevronLeft />
           </button>
           <h1 className="md:text-4xl sm:text-3xl font-normal ml-3">
