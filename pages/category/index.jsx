@@ -35,6 +35,7 @@ export default function Category(props) {
               name={el.name}
               description={el.description}
               price={el.price}
+              image={el.image}
               id={el.room_uid}
             />
             ))}

@@ -37,7 +37,6 @@ export default function Navbar() {
     const router = useRouter()
     const getToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
-    console.log(searchTerm);
 
 
     // funtion Logout
