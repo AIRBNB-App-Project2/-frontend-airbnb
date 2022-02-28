@@ -5,6 +5,9 @@ import Navbar from '../../components/navbar'
 import { useSelector } from "react-redux";
 import { numberWithCommas } from "../../utils/numberWithCommas";
 import { useRouter } from "next/router";
+import { masa } from 'masa';
+
+
 
 export default function Index() {
   const data = {
@@ -28,7 +31,7 @@ export default function Index() {
   return (
     <>
       <Navbar />
-      <div className="mx-8 my-10">
+      <div className="mx-8 my-10 min-h-screen">
         <div className="flex items-center mt-16">
           <button className="md:text-4xl sm:text-3xl text-primary hover:text-elemen1" onClick={() => { router.push('/') }}>
             <HiChevronLeft />
@@ -38,19 +41,25 @@ export default function Index() {
           </h1>
         </div>
 
-        <div className="flex flex-wrap px-3 my-5">
+        <div className="flex flex-wrap  px-3 my-5">
           {listBooked.bookings ? listBooked.bookings.map(el => (
             <div key={el.booking_uid} className=" w-full my-3 rounded-md bg-slate-100">
               <div className="flex flex-row px-3  py-6 relative">
                 <div className="basis-1/3">
-                  <h1 className="text-4xl ">{el.name}</h1>
-                  <h6 className="detail text-gray-600 text-ellipsis w-80 leading-8">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate iure quisquam alias sit, nesciunt inventore reiciendis consequatur ex quasi illo.</h6>
+                  <h1 className="text-xl ">{el.name}</h1>
+                  <h6 className="detail text-gray-600 text-ellipsis my-3 w-80 leading-5">{el.description}</h6>
                 </div>
+
                 <div className="mx-6 mt-10">
-                  <p className="text-sm text-gray-600 leading-8">Check In : {el.start_date}</p>
-                  <p className="text-sm text-gray-600 ">Check Out : {el.end_date}</p>
-                  <h4 className="text-lg font-semibold text-gray-700 mt-2 leading-8">
-                    Rp{numberWithCommas(el.price)} x {el.days} malam
+                  {/* check in */}
+                  <p className="flex text-md items-center text-primary font-semibold leading-8"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg> {masa(el.start_date).format('dddd, D MMMM YYYY')}</p>
+                  {/* check out */}
+                  <p className="flex items-center text-rose-400 text-md font-semibold "><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg> {masa(el.end_date).format('dddd, D MMMM YYYY')}</p>
+                  <h4 h4 className="text-lg font-semibold text-gray-700 mt-2 leading-8" >
                   </h4>
                   <h4 className="text-xl font-semibold leading-7 text-gray-800">
                     Total: Rp{numberWithCommas(el.price_total)}

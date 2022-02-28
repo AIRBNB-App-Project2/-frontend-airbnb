@@ -71,7 +71,7 @@ export default function Index() {
                 <div className="mt-10">
                   <label htmlFor="number">Masukkan No HP</label>
                   <input
-                    type="number"
+                    type="text"
                     className="block border border-stone-600 p-2 rounded-lg"
                   />
                 </div>
