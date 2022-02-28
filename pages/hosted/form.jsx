@@ -14,7 +14,7 @@ export default function formHost() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
     axios
@@ -46,13 +46,14 @@ export default function formHost() {
       .post("http://18.140.1.124:8081/room", body, config)
       .then(({ data }) => {
         if (data) {
+          console.log(data);
           router.push("/hosted");
         }
       })
       .catch((err) => {
         console.log(err, "error");
       })
-      .finally(() => {});
+      .finally(() => { });
   }
 
   return (

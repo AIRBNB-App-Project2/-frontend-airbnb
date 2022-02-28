@@ -18,6 +18,7 @@ function Hosted() {
     const router = useRouter()
     const dispatch = useDispatch()
 
+    console.log(ownerRooms);
     useEffect(() => {
         if (!getToken) {
             router.push('/')
