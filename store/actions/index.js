@@ -1,11 +1,10 @@
 import { fetchAllRooms, setPost } from "./getRooms";
-import { fetchRoomsUid, setUid } from "./getRoomUid";
+import { fetchUser, setUser } from "./getUser";
+import { fetchCity, setCity } from "./getCityjs";
 
 const allStore = {
     fetchAllRooms,
-    setPost,
-    fetchRoomsUid,
-    setUid,
+    setPost, fetchUser, setUser, fetchCity, setCity
 };
 
 export default allStore;

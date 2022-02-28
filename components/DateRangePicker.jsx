@@ -7,12 +7,12 @@ import dateFnsFormat from "date-fns/format";
 import dateFnsParse from "date-fns/parse";
 
 const parseDate = (str, format, locale) => {
-  const parsed = dateFnsParse(str, format, new Date(), {locale})
+  const parsed = dateFnsParse(str, format, new Date(), { locale })
   return DateUtils.isDate(parsed) ? parsed : null
 }
 
 const formatDate = (date, format, locale) =>
-  dateFnsFormat(date, format, {locale});
+  dateFnsFormat(date, format, { locale });
 
 const format = "dd MMM yyyy";
 
@@ -21,7 +21,7 @@ const numberOfNightsBetweenDates = (startDate, endDate) => {
   const end = new Date(endDate);
   let dayCount = 0;
 
-  while (end > start){
+  while (end > start) {
     dayCount++;
     start.setDate(start.getDate() + 1);
   }
@@ -29,22 +29,22 @@ const numberOfNightsBetweenDates = (startDate, endDate) => {
   return dayCount;
 }
 
-export default function DateRangePicker({datesChanged}) {
 
+export default function DateRangePicker({datesChanged}) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
   return (
     <div className="flex justify-between border items-center p-3">
-      <DayPickerInput 
-      className="basis-2/4 px-3 py-2 focus:border-none focus:outline-none"
+      <DayPickerInput
+        className="basis-2/4 px-3 py-2 focus:border-none focus:outline-none"
         formatDate={formatDate}
         format={format}
         parseDate={parseDate}
         placeholder='Check in'
         inputProps={
-          { 
-            required: true 
+          {
+            required: true
           }
         }
         dayPickerProps={{
@@ -65,18 +65,29 @@ export default function DateRangePicker({datesChanged}) {
         }}
       />
 
-      <DayPickerInput 
-      className="basis-2/4 px-3 py-2"
-      formatDate={formatDate}
-      format={format}
-      parseDate={parseDate}
-      placeholder='Check out'
-      inputProps={
-          { 
-            required: true 
+      {/* <DayPickerInput
+//         className="basis-2/4 px-3 py-2"
+//         formatDate={formatDate}
+//         format={format}
+//         parseDate={parseDate}
+//         placeholder='Check out'
+//         dayPickerProps={{
+//         }}
+//       /> */}
+
+      <DayPickerInput
+        className="basis-2/4 px-3 py-2"
+        formatDate={formatDate}
+        format={format}
+        parseDate={parseDate}
+        placeholder='Check out'
+        inputProps={
+          {
+            required: true
           }
         }
-      dayPickerProps={{
+        dayPickerProps={{
+
           modifiers: {
             disabled: [
               startDate,
