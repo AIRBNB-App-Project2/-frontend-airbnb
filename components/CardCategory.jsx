@@ -14,6 +14,7 @@ function CardCategory(props) {
   const [name] = useState(props.name);
   const [description] = useState(props.description);
   const [price] = useState(props.price);
+  const [image] = useState(props.image);
   const [id] = useState(props.id);
 
 
@@ -24,7 +25,7 @@ function CardCategory(props) {
           <div className="flex justify-between bg-white shadow-xl md:flex">
             <div className='flex w-2/6 p-2 items-center'>
               <Image
-                src={villas}
+                src={image}
                 alt="villa"
                 width="265px"
                 height="205px"
