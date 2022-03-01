@@ -15,6 +15,7 @@ export default function formHost() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
   const [status, setStatus] = useState();
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     axios
@@ -37,6 +38,7 @@ export default function formHost() {
     bodyFormData.append("price", price);
     bodyFormData.append("status", status);
     bodyFormData.append("description", description);
+    bodyFormData.append("files", images);
 
     const token = localStorage.getItem("token");
 
@@ -251,6 +253,9 @@ export default function formHost() {
                     type="file"
                     multiple
                     className="mt-1 border focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary block w-full shadow-sm sm:text-sm border-secondary px-3 py-2"
+                    onChange={(e) => {
+                      setImages(e.target.files);
+                    }}
                   />
                 </div>
                 <div className="dz-message" data-dz-message></div>
