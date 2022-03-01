@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { FaHeart } from "react-icons/fa";
-import Image from 'next/image';
 import Link from 'next/link';
-import villas from "../img/villa.jpg";
 import { useRouter } from 'next/router';
-import Swal from 'sweetalert2'
-import axios from 'axios';
-import { Dialog, Transition, Fragment } from '@headlessui/react'
+// import Swal from 'sweetalert2'
+// import Image from 'next/image';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
