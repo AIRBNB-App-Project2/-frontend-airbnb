@@ -10,11 +10,11 @@ export default function formHost() {
 
   const [villaName, setVillaName] = useState("");
   const [address, setAddress] = useState("");
-  const [city, setCity] = useState(0);
-  const [category, setCategory] = useState("");
+  const [city, setCity] = useState();
+  const [category, setCategory] = useState();
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [status, setStatus] = useState('');
+  const [price, setPrice] = useState();
+  const [status, setStatus] = useState();
 
   useEffect(() => {
     axios
@@ -29,21 +29,26 @@ export default function formHost() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const body = {
-      name: villaName,
-      category: category,
-      address: address,
-      city_id: city,
-      price: price,
-      status: status,
-      description: description,
-    };
+    const bodyFormData = new FormData();
+    bodyFormData.append("name", villaName);
+    bodyFormData.append("category", category);
+    bodyFormData.append("address", address);
+    bodyFormData.append("city_id", city);
+    bodyFormData.append("price", price);
+    bodyFormData.append("status", status);
+    bodyFormData.append("description", description);
+
     const token = localStorage.getItem("token");
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    axios
-      .post("http://18.140.1.124:8081/room", body, config)
+
+    axios({
+      method: "post",
+      url: "http://18.140.1.124:8081/room",
+      data: bodyFormData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
       .then(({ data }) => {
         if (data) {
           console.log(data);
@@ -53,7 +58,7 @@ export default function formHost() {
       .catch((err) => {
         console.log(err, "error");
       })
-      .finally(() => { });
+      .finally(() => {});
   }
 
   return (
@@ -257,7 +262,7 @@ export default function formHost() {
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2"
                     onClick={handleSubmit}
                   >
-                    Create Room
+                    Sewakan Villa
                   </button>
                 </a>
               </div>
