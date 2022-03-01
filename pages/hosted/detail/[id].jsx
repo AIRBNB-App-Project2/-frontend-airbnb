@@ -41,7 +41,6 @@ export default function DetailItem(props) {
     function openModal(id) {
         setIsOpen(true)
         setIdRoom(id)
-        console.log(id);
     }
 
     useEffect(() => {
@@ -71,7 +70,7 @@ export default function DetailItem(props) {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Your work has been saved',
+                    title: 'Anda berhasil menghapus data villa ',
                     showConfirmButton: false,
                     timer: 1500
                 })

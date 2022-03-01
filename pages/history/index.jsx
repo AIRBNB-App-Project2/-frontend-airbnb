@@ -11,13 +11,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import allStore from '../../store/actions';
+import Swal from 'sweetalert2'
 
-
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
 
 export default function Index() {
   const router = useRouter()
   const listBooked = useSelector(({ listUser }) => listUser)
   const [idBooking, setIdBooking] = useState('')
+  const getToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const dispatch = useDispatch()
 
@@ -30,23 +34,32 @@ export default function Index() {
   function openModal(id) {
     setIsOpen(true)
     setIdBooking(id)
-    console.log(id);
   }
 
   useEffect(() => {
+    if (!getToken) {
+      router.push('/')
+    }
     dispatch(allStore.fetchUser())
-
   }, [dispatch])
 
 
   function handleCancelBooked() {
     const body = { status: 'cancel' }
-    const getToken = localStorage.getItem('token')
+    const token = localStorage.getItem('token')
     axios.put(`http://18.140.1.124:8081/booking/${idBooking}`, body, {
-      headers: { Authorization: `Bearer ${getToken}` }
+      headers: { Authorization: `Bearer ${token}` }
     })
-      .then(({ data }) => {
-        console.log(data.data);
+      .then((response) => {
+        // console.log(data.data);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'pembatalan berhasil',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setIsOpen(false)
       })
       .catch(err => {
         console.log(err.response);
@@ -72,7 +85,7 @@ export default function Index() {
                 <div className="max-w-7xl">
                   <h1 className="text-xl ">{el.name}</h1>
                   <h6 className="detail text-gray-600 text-ellipsis my-3 w-80 leading-5">{el.description}</h6>
-                  <p className="text-lg font-semibold text-right text-elemen1">Status {el.status}</p>
+                  <p className="text-lg font-semibold text-left text-elemen1">Status: {el.status}</p>
                 </div>
 
                 <div className="mx-auto mt-10">
@@ -91,7 +104,7 @@ export default function Index() {
                   </h4>
                 </div>
                 <div className="absolute right-10">
-                  <button onClick={() => { openModal(el.booking_uid) }} className="px-3 py-3 rounded-md bg-rose-400 text-lg text-white hover:bg-rose-500">Cancel</button>
+                  <button onClick={() => { openModal(el.booking_uid) }} className={classNames(el.status == 'cancel' ? 'hidden' : '', `px-3 py-3 rounded-md bg-rose-400 text-lg text-white hover:bg-rose-500`)}>Cancel</button>
                 </div>
               </div>
             </div>
