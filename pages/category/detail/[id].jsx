@@ -21,30 +21,6 @@ import p4 from "../../../img/p4.jpg";
 import Navbar from '../../../components/navbar'
 import Loading from "../../../components/loading";
 
-// Day Picker
-const parseDate = (str, format, locale) => {
-  const parsed = dateFnsParse(str, format, new Date(), {locale})
-  return DateUtils.isDate(parsed) ? parsed : null
-}
-
-const formatDate = (date, format, locale) =>
-  dateFnsFormat(date, format, {locale});
-
-const format = "dd MMM yyyy";
-
-const calculationDate = (startDate, endDate) => {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  let dayCount = 0;
-
-  while (end > start){
-    dayCount++;
-    start.setDate(start.getDate() + 1);
-  }
-
-  return dayCount;
-}
-
 
 export default function DetailItem(props) {
 
@@ -61,6 +37,7 @@ export default function DetailItem(props) {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState('');
+  const [image, setImage] = useState([]);
 
   const [loading, setLoading] = useState(false)
   const [start_date, setStart_date] = useState(new Date());
@@ -77,15 +54,13 @@ export default function DetailItem(props) {
         start_date,
         end_date,
       }
-      console.log(start_date)
       axios
       .post("http://18.140.1.124:8081/booking/", body, {headers : {authorization:`bearer ${localStorage.getItem("token")}`}})
       .then(({data}) => {
-        router.push("/payment");
-        console.log(data);
+        console.log(data.data.booking_uid)
+        router.push(`/payment/${data.data.booking_uid}`);
       })
       .catch((err) => {
-        console.log(err);
         if (err) {
           Swal.fire({
               icon: 'error',
@@ -99,9 +74,6 @@ export default function DetailItem(props) {
     });
   }
 
-  // useEffect(() => {
-  //   console.log(setStart_date);
-  // }, [setStart_date])
 
   function returnButton(){
     if (typeof window !== "undefined") {
@@ -136,20 +108,6 @@ export default function DetailItem(props) {
   }
 }
 
-//   useEffect(() => {
-//     const findRoom = listRooms.find(el => el.room_uid == id);
-
-//     if (findRoom) {
-//       setName(findRoom.name);
-//       setAddress(findRoom.address);
-//       setOwner(findRoom.owner_room);
-//       setPrice(findRoom.price);
-//       setDescription(findRoom.description);
-//       console.log(findRoom.address);
-//       // setImage(findRoom.Image.url);
-//     }
-   
-//   }, [listRooms]);
 
   return (
     <>
@@ -187,6 +145,7 @@ export default function DetailItem(props) {
                     Rp. {numberWithCommas(rooms.price)} / malam
                   </h4>
                 </div>
+
                 <div className="flex h-16 mt-2">
                   <div className="flex w-2/4">
                     <div className="flex justify-between border items-center p-3">
@@ -200,6 +159,7 @@ export default function DetailItem(props) {
                       onChange={e => { setStart_date(e.target.value) }} />
                       </div>
                       <div>
+
                       <input 
                       type="date" 
                       value={end_date} 
@@ -207,57 +167,6 @@ export default function DetailItem(props) {
                       className="p-2" 
                       required 
                       onChange={e => { setEnd_date(e.target.value) }} />
-                      {/* <DayPickerInput 
-                        className="basis-2/4 px-3 py-2 focus:border-none focus:outline-none"
-                        style={{padding: "5px"}}
-                        formatDate={formatDate}
-                        format={format}
-                        parseDate={parseDate}
-                        placeholder='Check in'
-                        // onChange={e => { setStart_date(e.target.value) }} 
-                        value={start_date}
-                        inputProps={
-                          { 
-                            required: true 
-                          }
-                        }
-                        dayPickerProps={{
-                          modifiers: {
-                            disabled: {
-                              before: new Date()
-                            }
-                          }
-                        }}
-                        onDayChange={e => { setStart_date(e) }}
-                      />
-                    </div>
-
-                    <div>    
-                      <DayPickerInput 
-                        className="basis-2/4 px-3 py-2"
-                        formatDate={formatDate}
-                        format={format}
-                        parseDate={parseDate}
-                        placeholder='Check out'
-                        // onChange={e => { setEnd_date(e.target.value) }} 
-                        value={end_date}
-                        inputProps={
-                            { 
-                              required: true 
-                            }
-                          }
-                        dayPickerProps={{
-                            modifiers: {
-                              disabled: [
-                                startDate,
-                                {
-                                  before: startDate
-                                }
-                              ]
-                            }
-                          }}
-                          onDayChange={e => { setEnd_date(e) }}
-                        /> */}
                       </div>
                     </div>
                   </div>

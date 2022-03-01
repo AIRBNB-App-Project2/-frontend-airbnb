@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { FaHeart } from "react-icons/fa";
-import CardCategory from '../../components/CardCategory';
-import Image from 'next/image';
-// import Map from '../../components/Map';
-import Navbar from '../../components/navbar'
 import { useRouter } from 'next/router';
 import { useSelector } from "react-redux";
+import { FaHeart } from "react-icons/fa";
+
 import axios from "axios";
-import dynamic from 'next/dynamic';
+import Image from 'next/image';
+
+import CardCategory from '../../components/CardCategory';
+import Navbar from '../../components/navbar'
 import GMaps from '../../components/GMaps';
 
-// export const Map = dynamic( import("../../components/Map"), {ssr: false});
 
 export default function Category(props) {
 
@@ -18,8 +17,6 @@ export default function Category(props) {
   const router = useRouter();
   const categories = router.query.category;
   const cities = router.query.city;
-  // categories.charAt(0).toUpperCase() + categories.slice(1);
-  // categories.replace(/^./, categories[0].toUpperCase());
 
   return (
     <>
@@ -40,6 +37,7 @@ export default function Category(props) {
                 description={el.description}
                 price={el.price}
                 id={el.room_uid}
+                image={el.image}
               />
             )) : (
               <div className='min-h-screen max-w-xl block'>
