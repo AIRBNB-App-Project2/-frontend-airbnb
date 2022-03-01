@@ -1,12 +1,52 @@
 import DateRangePicker from "../../components/DateRangePicker";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { HiChevronLeft } from "react-icons/hi";
 import "react-datepicker/dist/react-datepicker.css";
-import Navbar from '../../components/navbar'
-import { useRouter } from "next/router";
-
+import Navbar from '../../components/navbar';
+import Loading from "../../components/loading";
+import axios from "axios";
+import Image from "next/image";
+import Swal from "sweetalert2";
 
 export default function Index() {
-  const router = useRouter()
+
+  const router = useRouter();
+  const {id} = router.query;
+  console.log(id)
+
+  function handlePayment(e){
+    e.preventDefault();
+    setLoading(true);
+
+    axios
+    .post(`http://18.140.1.124:8081/booking/${id}/payment`, {headers : {authorization:`bearer ${localStorage.getItem("token")}`}})
+    .then(({data}) => {
+      if (data) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Yeayyy..',
+          text: `Selamat liburan!`
+      })
+    }
+      console.log(data)
+    })
+    .catch((err) => {
+      if (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ooppss, Maaf..',
+          text: `${err}`
+      })
+    }
+  })
+  .finally(() => {
+    setLoading(false);
+  });
+}
+
+  const [loading, setLoading] = useState(false);
+
 
   const data = {
     villaName: "Villa Premium A3",
@@ -38,7 +78,7 @@ export default function Index() {
         <div className="flex flex-wrap">
           <div className="confirm-reserve lg:w-7/12 w-full">
             <div className="md:flex items-center mt-6">
-              <img src="https://source.unsplash.com/random/300x200" />
+              <Image alt="image" src="https://source.unsplash.com/random/300x200" width="300px" height="200px" />
               <div className="md:ml-6">
                 <h1 className="text-4xl sm:mb-4">{data.villaName}</h1>
                 <div className="detail">{`${data.category}, `}</div>
@@ -76,7 +116,7 @@ export default function Index() {
                   />
                 </div>
               </form>
-              <button className="bg-primary px-4 py-3 text-white rounded-lg mt-6">
+              <button className="bg-primary px-4 py-3 text-white rounded-lg mt-6" onClick={handlePayment}>
                 Konfirmasi dan Bayar
               </button>
             </div>
